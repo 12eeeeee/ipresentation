@@ -27,7 +27,8 @@ module.exports = function (app) {
         });
 
     app.get('/Plist', function(req, res){
-        //, Article : req.Article
+       
+       // console.log(Article);
       //  console.log(req._Article.ptname);
 
 
@@ -58,7 +59,8 @@ module.exports = function (app) {
 
           console.log(cPage);
 
-          Article.find({ ptname : cPage }, function(err, Articles, count){
+          Article.findOne({ ptname : cPage }, function(err, doc, count){
+            console.log('slide : ' +doc.slide);
               if(err)
                 console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
 
@@ -82,16 +84,17 @@ module.exports = function (app) {
         if(err) return handleError(eror);
         console.log('remove!');
     })*/
-    Article.update({ptname:cPage}, {$push:{'slide' : SLIST}} , {upsert:true,multi:false} , function(err,data){
+    Article.update({ptname:cPage}, {'slide' : SLIST} , {upsert:true,multi:false} , function(err,data){
         if(err)
             console.log(err);
     });
 
       
-    Article.find({ ptname : cPage }, function(err, Article, count){
+    Article.findOne({ ptname : cPage }, function(err, doc, count){
          //   Article.remove(Article.slide);
-            console.log('Target Status'+Article.slide);
-
+            console.log('Target Status : '+ doc.slide);
+            if(err)
+              console.log(err);
         });
        res.redirect('/Pmenu/'+cPage);
 

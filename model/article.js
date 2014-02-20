@@ -7,7 +7,13 @@ var Article = new Schema({
     date	: { type: String, default: '' },
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
-    slide : Schema.Types.Mixed
-    });
+    slide : [],
+    recordReal : {type : String},
+    recordPractice : []
+});
 
+var Slide = new Schema({
+	slides : [Slide]
+
+});
 module.exports = mongoose.model('Article', Article);
