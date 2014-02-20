@@ -1,0 +1,47 @@
+
+	<div data-theme="b" id="pmenu" data-role="page" data-url="pmenu">
+   
+ 	 <div class="bmenu" id="menu" data-position="right" data-role="panel">
+			<ul data-theme="a" data-inset="true" data-role="listview">
+				<li data-role="list-divider">Insight Presentation</li>
+				<li><a data-panel="main" href="#page">Home</a></li>
+				<li><a href="#page">로그아웃</a></li>
+				<li><a href="#Plist">PPT목록</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
+			</ul>
+		</div>
+
+
+
+   <div data-role="header">
+
+			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
+			<h1 align="center">Presenter&nbsp;Mode</h1>
+			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+		</div>
+		<h2> <center> Title : <%=cPage%>  </center></h2>
+		<div id="wrap" data-role="content">
+        <div style="margin-top: 60px;">
+
+			<table>
+				<tbody><tr id="c1"> <!-- 02.19 #canvas -> /canvas -->
+					<td><a id="a1" data-transition="flip" data-role="button" href="/canvas"><br/><br/>PPT<br>Making<br><br/>
+					</a></td>
+					<td><a id="b1" data-transition="flip" data-role="button" href="#ex_control"><br/><br/>Exercise<br>PPT<br/><br/>
+					</a></td>
+				</tr>
+				<tr id="c1">
+					<td><a id="a1" data-transition="flip" data-role="button" href="/presentPPT"><br/><br/>Present<br>PPT<br/><br/>
+					</a></td>
+					<td><a id="b1" data-transition="flip" data-role="button" href="#check_comment"><br/><br/>Check<br>Comment<br/><br/>
+					</a></td>
+				</tr>
+			</tbody></table>
+		</div>
+		</div> 
+        <div data-position="fixed" data-role="footer">
+			<h4>&copy;Insight&nbsp;presentation</h4>
+		</div>
+       	</div>
+    
+
