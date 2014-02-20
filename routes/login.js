@@ -65,7 +65,7 @@ module.exports = function (app) {
         var name = req.body.R_NAME;
         var blob = req.body.R_blob;
         console.log(name);
-        console.log(blob);
+       // console.log(blob);
 
 
         base64Data = blob.replace(/^data:audio\/wav;base64,/,""),
