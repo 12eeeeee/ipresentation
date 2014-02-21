@@ -36,7 +36,10 @@ function getT(){
 	}
 
 </script>
-
+<!-- 	<input type = "text" id = "BOX" />
+      	<button id = "btn" onclick = "getT()"> click </button>
+      <div id='div1'> </div> -->
+        
         
 			<ul data-role="listview" id="list1">
 				<li data-icon="plus"><a href="/createArticle">Add</a></li>
@@ -46,6 +49,53 @@ function getT(){
 				<% }) %>
 			</ul>
 			<div style="margin-top: 30px;"></div><!--사이여백띄어줌-->
+          
+		  
+		  <!--선택버튼 없애기  <select name = "listView" id = "listView" >
+            	<% Article.forEach( function(Articles){ %>
+            		<option value = <%=Article.ptname%>> <%= Article.ptname %> </option>
+            	<% }) %>
+            </select> -->
+
+
+      <!--       <div data-role = "filedcontaion">
+            	<filedset data-role = "controlgroup">
+            		<input type = "checkbox" name = <%Article.ptname%> id = <%Article.ptname%>/>
+            		<labe for = <%Article.ptname%> <%Article.ptname%> </label>
+            	</filedset>
+            </div> -->
+
+			
+<!-- 			<div style="margin-top: 30px;">
+				<a data-icon="check" data-role="button" href="/pmenu">Select</a>
+
+			</div> -->
+		</div>
+	<!-- 	<ul>
+		<li>	
+		<% Article.forEach( function(Article){ %>
+         <p>
+            <span>
+               
+				<li>     <%= Article.ptname %>	</li>
+
+              
+            </span>
+            <span>
+               
+               Delete
+               </a>
+            </span>
+         </p>
+
+   		 
+   		<% }) %>
+ 		</li>
+ 	</ul>
+ -->
+
+	
+
 
 	<div data-position="fixed" data-role="footer">
 		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
