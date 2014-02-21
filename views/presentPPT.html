@@ -8,27 +8,19 @@
 <script src="js/jquery.timer.js"></script>
 
 
-<style type="text/css">
-#wrap {
-	height: 97%;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-
+   <style type="text/css">
+   body{
+   			font-family:"맑은 고딕";
+   }
+    
 #a {
-	height: 90%;
-	text-align: center;
+	height: 100%;
+
 }
 
 #b {
-	height: 90%;
-	text-align: center;
-}
-
-#c {
-	height: 70%;
+	height: 100%;
+	
 }
 
 #c td{
@@ -42,39 +34,33 @@
 
 table {
 	width: 100%;
-	height: 97%;
+	height:40%;
 }
+
 
 #wrap1 {
-	height: 97%;
-	top: 50;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	height: 40%;
+
 }
 
-#a1 {
-	height: 100%;
+#a1 {	
 	text-align: center;
 }
 
 #b1 {
-	height: 100%;
+	
 	text-align: center;
 }
 
 #c1 {
-	height: 50%;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	height: 100%;
 }
 
 #c1 td{
 	width: 50%;
-	height : 50%;
-}
+	height :100%;
+} 
+
 
 <!--------------------------녹음기능 레이아웃 스타일 ----------------------->
 
@@ -124,14 +110,14 @@ table {
 		<div data-role="panel" data-position="right" id="menu" class="bmenu">
 			<ul data-role="listview" data-inset="true" data-theme="b">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page" data-panel="main">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="#Plist">PPT목록</a></li>
+				<li><a href="index.html#page" data-panel="main">Home</a></li>
+				<li><a href="index.html#page">로그아웃</a></li>
+				<li><a href="Plist.html">PPT목록</a></li>
 				<li><a href="#my" data-panel="main">마이페이지</a></li>
 			</ul>
 		</div>
 		<div data-role="header">
-			<a href="/pmenu/<%= cPage %>" data-role="button" data-icon="back">back</a>
+			<a href="pmenu.html" data-role="button" data-icon="back" data-rel="external">back</a>
 			<h1 align="center">PPT 발표모드</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>       
 		</div>
@@ -155,17 +141,17 @@ table {
         	 <%= cPage %>
         	
 				<tr>
-					<td colspan=2>
+					<td colspan=2 align="center">
 						<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
                      		 <div>
-           						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example1.Timer.toggle();">
-								<img id="init_" src="init.png" onclick="Example1.resetStopwatch();">
-                				<img type="image" src="save.svg" alt="Submit Form" onclick="saveAudio();">
-                				<span id="stopwatch">00:00:00</span>
-                				<input type="hidden" id = "R_NAME" name="R_NAME"/>
-
+           						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example2.Timer.toggle();">&nbsp;&nbsp; 
+								<img id="stop" src="stopstop48.png" onclick="saveAudio();">&nbsp;&nbsp; 
+								<img id="init_" src="stop.png" onclick="Example2.resetStopwatch();">&nbsp;&nbsp; &nbsp;&nbsp; 
+                   				<input type="hidden" id = "R_NAME" name="R_NAME"/>
                 				<input type="hidden" id = "R_blob" name="R_blob"/>
-                				<input type="image" src="save.svg" alt="Submit Form" onclick="saveAudio();"/>
+                				<input type="image" src="save.png" alt="Submit Form" onclick="saveAudio();"/>
+								&nbsp;&nbsp; &nbsp;&nbsp;                  
+                        	<br/><br/><span id="stopwatch2">00:00:00</span> &nbsp;&nbsp;    	
             				</div> 
             			</form>
 					</td>
@@ -173,7 +159,7 @@ table {
 						
 
 			<tr>
-				<td colspan=2 width="100%">슬라이드보이는창zZZ</td>
+				<td colspan=2 width="100%"></td>
 			</tr>
 
 
@@ -234,8 +220,7 @@ table {
 			</table>
 		</div>
         <div data-role="footer" data-position="fixed">
-			<h4>&copy;Insight&nbsp;presentation</h4>
-		</div>
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
         
 	</div>
 </body>

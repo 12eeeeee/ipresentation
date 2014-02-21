@@ -3,9 +3,7 @@ var Article = require('../model/article');
 module.exports = function (app) {
 
     app.get('/createArticle', function(req, res) {
-        res.render('createArticle', {user : req.user });
-
-
+        res.render('createArticle', {user : req.user });    
     });
 
     app.post('/createArticle', function(req, res) {
@@ -28,12 +26,20 @@ module.exports = function (app) {
 
     app.get('/Plist', function(req, res){
        
-       // console.log(Article);
-      //  console.log(req._Article.ptname);
-
-
         Article.find(function(err, Article, count){
             res.render('Plist',
+            {
+                user : req.user,
+                Article : Article
+            });
+            if(err)
+                console.log(err);   
+            });
+        });
+    app.get('/Llist', function(req, res){
+
+        Article.find(function(err, Article, count){
+            res.render('Llist',
             {
                     user : req.user,
                     Article : Article
@@ -46,6 +52,7 @@ module.exports = function (app) {
    
         });
 
+
       app.get('/Pmenu/:cPage', function(req, res, next){
         var cPage = req.param('cPage');
         
@@ -55,20 +62,32 @@ module.exports = function (app) {
               {
                    user : req.user,  Article : req.Article , cPage : cPage    
               });
-       // res.send(cPage);
+          console.log(cPage);
 
+          Article.findOne({ ptname : cPage }, function(err, doc, count){
+          //  console.log('slide : ' +doc.slide);
+              if(err)
+                console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
+
+          });
+    });
+
+      app.get('/Lmenu/:cPage', function(req, res, next){
+        var cPage = req.param('cPage');     
+        res.cookie('cPage', cPage);
+        res.render('Lmenu',
+              {
+                   user : req.user,  Article : req.Article , cPage : cPage    
+              });
           console.log(cPage);
 
           Article.findOne({ ptname : cPage }, function(err, doc, count){
             console.log('slide : ' +doc.slide);
               if(err)
                 console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
-
           });
-
-          
-
     });
+
 
     app.post('/canvas', function(req, res){
         var cPage = req.cookies.cPage;

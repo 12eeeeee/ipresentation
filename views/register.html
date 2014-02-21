@@ -1,23 +1,21 @@
-
-
 <html>
 <meta charset="UTF-8">
 <body>
 <div data-theme="b" id="register" data-role="page" data-url="register">
 		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="d" data-inset="true" data-role="listview">
+			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="#Plist">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
+				<li><a href="index.html" data-panel="main">Home</a></li>
+				<li><a href="index.html">로그아웃</a></li>
+				<li><a href="Plist.html">PPT목록</a></li>
+				<li><a href="#my" data-panel="main">마이페이지</a></li>
 			</ul>
 		</div>
 
 		
 
 		<div data-role="header">
-			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
+			<a data-rel="external" data-icon="back" data-role="button" href="login.html">back</a>
 			<h1 align="center">Join</h1>
 			<a data-iconpos="right" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
@@ -57,23 +55,22 @@
 
 				<div data-role="fieldcontail">
 					<fieldset data-type="horizontal" data-role="controlgroup">
-						<label> 성별 확인 : </label><br> <label for="male"> 남 </label> <input type="radio" name="sex" id="sex"> <label for="female">
-							여 </label> <input type="radio" name="sex" id="sex">
+						<label> 성별 확인 : </label><br> <label for="male"> 남 </label> <input type="radio" name="sex" id="male"> <label for="female">
+							여 </label> <input type="radio" name="sex" id="female">
 					</fieldset>
 				</div>
 				<br> <br>
+				<center>
 				<div data-role="fieldcontail">
-					<center>
-						<a data-transition="flip" type="submit" style="width: 200px" data-role="button" onclick = "poll_func(this)">Join</a>
-						<input type = "submit" value = "join!!!!" onclick = "poll_func(this)"/>
+				<!--	<a data-transition="flip" type="submit" style="width: 200px" data-role="button" onclick = "poll_func(this)">Join</a> -->
+						<input type = "submit" value = "join" onclick = "poll_func(this)"/>
 					</center>
 				</div>
 			</form>
 		</div>
         
 		<div data-position="fixed" data-role="footer">
-			<h4>&copy;Insight&nbsp;presentation</h4>
-		</div>
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
 	</div>
 </body>
 </html>

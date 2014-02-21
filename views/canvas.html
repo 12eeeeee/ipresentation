@@ -1,22 +1,32 @@
-<body  >
+<body>
+	<head>
+	  <style type="text/css">
+   body{
+   			font-family:"맑은 고딕";
+   }
+   </style>
+   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js">
+   </script>
 
-   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
+	</head>
    <div data-role="page" id="canvas" data-theme="b">
    
+
+
     <div data-role="panel" data-position="right" id="menu" class="bmenu">
       <ul data-role="listview" data-inset="true" data-theme="b">
-        <li data-role="list-divider"><strong>Insight Presentation</strong></li>
-        <li><strong><a href="#page" data-panel="main">Home</a></strong></li>
-        <li><strong><a href="#page">로그아웃</a></strong></li>
-        <li><strong><a href="#Plist">PPT목록</a></strong></li>
-        <li><strong><a href="#my" data-panel="main">마이페이지</a></strong></li>
+        <li data-role="list-divider">Insight Presentation</li>
+        <li><a href="#page" data-panel="main">Home</a></li>
+        <li><a href="#page">로그아웃</a></strong></li>
+        <li><a href="#Plist">PPT목록</a></strong></li>
+        <li><a href="#my" data-panel="main">마이페이지</a></li>
       </ul>
     </div>
 
 
 
     <div data-role="header">
-      <a href="#" data-role="button" data-icon="back" data-rel="back">back</a>
+      <a href="pmenu.html" data-role="button" data-icon="back" data-rel="external">back</a>
       <h1 align="center">PPT 만들기</h1>
       <a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
            
@@ -275,8 +285,7 @@
     
      </div>
         <div data-role="footer" data-position="fixed">
-      <h4>&copy;Insight&nbsp;presentation</h4>
-    </div>
+    <h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
     </div>
     
    
