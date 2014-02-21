@@ -9,11 +9,7 @@ var Article = new Schema({
     username : {type : String, default: 'undefined'},
     slide : [],
     recordReal : {type : String},
-    recordPractice : [],
-    board : {
-        writer : { type: String, default: '' },
-        message : { type: String, default: '' }
-    } //20140221
+    recordPractice : []
 });
 
 var Slide = new Schema({

@@ -62,6 +62,7 @@ module.exports = function (app) {
 
         console.log('POST');
        // var url = req.body.R_URL;
+       //views/js/recorder.js와 연결됨
         var name = req.body.R_NAME;
         var blob = req.body.R_blob;
         name = name+'_'+req.cookies.cPage+'.wav';
@@ -79,18 +80,27 @@ module.exports = function (app) {
                     throw error;
                 }else{
                     console.log('FILE is made');
+
+
+
                     res.redirect('/presentPPT');
                 }
             });
                // 아티클에 파일이름 넣어보자
         console.log(filePath);
-        Article.update({'ptname':  req.cookies.cPage}, {'$push':{'recordReal':filePath}});
+        Article.update({'ptname':  req.cookies.cPage}, {'recordReal':filePath}, function(err, doc){
+              if(err)
+                console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
+                else
+                console.log('파일 들어감');
+             });
+
+  
         Article.findOne({ ptname : req.cookies.cPage }, function(err, doc, count){
             console.log('slide : ' +doc.recordReal);
               if(err)
                 console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
-
-          });
+              });
        
     });
     app.get('/upload', function(req, res){
@@ -120,5 +130,20 @@ module.exports = function (app) {
             cPage : req.cookies.cPage
         });
     });
+    app.get('/L_replay_control', function(req, res){
+        console.log('replay=>get');
+
+        Article.findOne({'ptname':req.cookies.cPage}, function(err, doc, count){ 
+
+            res.render('L_replay_control',
+            {
+                user : req.user,
+                Article : doc
+            });
+            if(err)
+                console.log(err);   
+            });
+        
+    })
       
 };
