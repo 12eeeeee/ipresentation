@@ -194,7 +194,6 @@ body {
 .reveal iframe {
 	max-width: 100%;
 	max-height: 100%;
-	border : 0 solid transparent;
 }
 
 .reveal strong,

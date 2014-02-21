@@ -7,9 +7,13 @@ var Article = new Schema({
     date	: { type: String, default: '' },
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
-    slide :  { type: String, default: '' },
+    slide : [],
     recordReal : {type : String},
-    recordPractice : []
+    recordPractice : [],
+    board : {
+        writer : { type: String, default: '' },
+        message : { type: String, default: '' }
+    } //20140221
 });
 
 var Slide = new Schema({

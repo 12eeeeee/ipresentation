@@ -7,6 +7,7 @@
    </style>
    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js">
    </script>
+
 	</head>
    <div data-role="page" id="canvas" data-theme="b">
    
@@ -33,18 +34,20 @@
         
     <div data-role="content" data-type="horizontal">            
       
-  <table style="width: 100%" style="height:100%">
-    <tr width=100%>
+        <table style="width: 100%" style="height:100%"  >
+     <tr width=100%>
       <td align="center">
-        <div id="viz">
-            <canvas id="canvas22" class="lower-canvas"width="550" height="300" ></canvas>
-        </div>
-      </td>
-    </tr>   
+            <div id="viz">
+            <canvas id="canvas22" class="lower-canvas" style="border: 1px solid rgb(170, 170, 170);"   width="550" height="300" ></canvas>
+           </div>
+         </td>
+       </tr>   
           
            
     <tr width="100%">
         <td width="100%" align="center">
+          
+          
           <div data-role="controlgroup" data-type="horizontal" align="center">
           <input type="button" onclick="g_circle()" value="circle"  data-inline="true">
           <input type="button" onclick="g_rect()" value="rectangular" data-inline="true">
@@ -57,20 +60,21 @@
            </div>
 
 
-          <form action = '/canvas' method="post" onSubmit = 'alert('저장 되었습니다')';>
+          <form action = '/canvas' method="post" onSubmit = alert('저장 되었습니다');>
           <div data-role="controlgroup" data-type="horizontal">
-              <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="white">
-              <input type="button" id="colorBtn" onclick ="colorChange()" data-inline="true" value="colorChange">
+              <label for="color" style="margin-left:10px" data-inline="true">Color: </label>
+              <input type="color" style="width:40px" bind-value-to="fill" id="picker" data-inline="true">
+              <input type="button" onclick="bgColor_()"  value="bgcolor" data-inline="true">
               <input type="button" id="capture" onclick="capture1()" data-inline="true" value="Capture">
               <input type="button" value=" clear All " onclick="del()" data-inline="true">
               <input type="hidden" id="JLIST" name ="JLIST">
               <input type="hidden" id="SLIST" name ="SLIST">
               <input type="submit" value="save" onclick="save1()" data-inline="true" >
            </div>
-         </form>
+        
       </td>
             </tr>
-        
+         </form>
         <tr width="100%">
         <td width="100%" >
             <div id="board"></div>
@@ -88,71 +92,49 @@
        var firstCaptureData;
         var canvas = this.__canvas = new fabric.Canvas('canvas22', {isDrawingMode: false}); 
             
-        function colorChange()
-        {
-          var color = $('#picker').val(); 
-          var obj = canvas.getActiveObject();
-          obj.set('fill', color);
-          canvas.renderAll();
-        }
         function g_circle()
-        {   var color = $('#picker').val(); 
-            var circle = new fabric.Circle({ radius: 30, fill: color, top: 100, left: 100 });
+        {   
+            var circle = new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 });
            canvas.add(circle);  
         }
         
         function g_rect()
         {
-           var color = $('#picker').val();
-           var rect = new fabric.Rect({ left: 100, top: 100, fill: color , width: 100, height: 100 });
+           var rect = new fabric.Rect({ left: 100, top: 100, fill: 'green', width: 100, height: 100 });
            canvas.add(rect);   
         }
 
         function addText()
         {
-          var color = 'white';
-              color = $('#picker').val();
-          var textInput;
-          var userInput = document.getElementById('textinput');
-          if(userInput == undefined) 
-            textInput = "NEW TEXT";
-          else 
-            textInput = userInput;
-
-           var object = new fabric.IText(textInput, { 
+           var object = new fabric.IText("NEW TEXT", { 
             fontFamily: "myFirstFont", 
             left: 150,
             top: 100,
             fontSize: 40,
             textAlign: "left",
-            fill: color
-            //fontColor: 'white'
+            fill: "#000000"
           });
-          // object.setColor(color);
           canvas.add(object);
-          canvas.render(this);
+          canvas.renderAll();
 
           $("#textinput").keyup(function(event) {
           //document.getElementById('textinput').addEventListener('keyup', function (e) {
             // alert("hi");
-            var color = $('#picker').val(); 
             var obj = canvas.getActiveObject();
             if (!obj) return;
             obj.setText(event.target.value);
-            
             canvas.renderAll();
-
           });
         }
 
     
-/*        function bgColor_()
+        function bgColor_()
         {
           var color = $('#picker').val();  
-          canvas.backgroundColor = rgba(127,0,255,1);
+          canvas.backgroundColor = color;
           canvas.renderAll();
         }
-*/
+
 /*        function save_()
         {
            json = window._json = canvas.toJSON();
@@ -196,12 +178,13 @@
 
                var img     = document.createElement('img');
                img.src     = src; 
-        
+               img.style.width = '150px';
+               img.style.height = '100px';
+               img.style.border = 'solid';
+               img.style.cursor = 'pointer'; // 커서 지정
+
                //document.getElementById('board').appendChild(img);
-               sList.push(img.src); 
-
-
-               alert('저장 src확인'+sList[sList.length-1]);
+               sList.push(img); 
                
                var PtView = document.getElementById('board2');
                var id = document.createElement('div');
@@ -216,6 +199,8 @@
               alert('capture!');
              currentSlide = (jList.length-1);
       }
+
+
 
     function load(i){
       var src     = canvas.toDataURL("image/png");
@@ -240,11 +225,60 @@
             alert('saved!');
             
             document.getElementById("JLIST").value = jList;
-            document.getElementById("SLIST").value = JSON.stringify(sList);
-             alert(document.getElementById("SLIST").value); //잘됬나확인 
+            document.getElementById("SLIST").value = sList;
       }
 
+      
+      
 
+
+/*     function test(){
+
+        alert('test');
+        alert(count);
+        var F = document.createElement('div');
+         alert('Frame'+count+'');
+        F.id = 'Frame'+count+'';
+         alert('F' + count + 'is called');
+        document.getElementById(F.id).innerHTML = 'F ' + count + ' is called';
+
+        if(count == 0){
+        alert('0');
+        document.getElementById('FullFrame').appendChild(F);
+        }else{
+          var Parent = 'Frame' + (count-1)+'';
+          doucment.getElementById(Parent).appendChild(F);
+        }
+       
+        count++;
+
+
+        alert('end');
+      }
+*/
+
+
+ /*     function test2(){
+
+       
+        ThirdFrame.id = 'ThirdFrame'+cnt;
+        ThirdFrame.style.width = '100px';
+        ThirdFrame.style.height = '50px';
+        ThirdFrame.style.border = 'solid';
+        ThirdFrame.style.cursor = 'pointer'; 
+        SecondFrame.innerHTML = 'Third Frame';
+      }
+
+      function test3(){
+
+       
+        LastFrame.id = 'LastFrame'+cnt;
+        LastFrame.style.width = '50px';
+        LastFrame.style.height = '10px';
+        LastFrame.style.border = 'solid';
+        LastFrame.style.cursor = 'pointer'; 
+        (ThirdFrame.id).innerHTML = 'Third Frame';
+      }*/
 
         </script>        
       
