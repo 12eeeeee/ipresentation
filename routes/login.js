@@ -25,7 +25,7 @@ module.exports = function (app) {
             birthday : req.body.birthday,
             email    : req.body.email,
             phonenum : req.body.phonenum,
-            sex      : req.body.sex,
+            sex      : req.body.sex
 
          }), req.body.password, function(err, account) {
             if (err) {
@@ -64,6 +64,7 @@ module.exports = function (app) {
        // var url = req.body.R_URL;
         var name = req.body.R_NAME;
         var blob = req.body.R_blob;
+        name = name+'_'+req.cookies.cPage+'.wav';
         console.log(name);
        // console.log(blob);
 
@@ -82,9 +83,14 @@ module.exports = function (app) {
                 }
             });
                // 아티클에 파일이름 넣어보자
-        console.log(Article.ptname);
+        console.log(filePath);
         Article.update({'ptname':  req.cookies.cPage}, {'$push':{'recordReal':filePath}});
-    
+        Article.findOne({ ptname : req.cookies.cPage }, function(err, doc, count){
+            console.log('slide : ' +doc.recordReal);
+              if(err)
+                console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
+
+          });
        
     });
     app.get('/upload', function(req, res){
@@ -105,5 +111,14 @@ module.exports = function (app) {
             cPage : req.cookies.cPage
         });
     });
-    
+  
+    app.get('/practicePPT', function(req, res){
+     console.log('practicePPT=>get');
+        res.render('practicePPT', {
+            user : req.user,
+            Article : req.Article,
+            cPage : req.cookies.cPage
+        });
+    });
+      
 };

@@ -1,3 +1,4 @@
+window.addEventListener('load', initAudio );
 /* Copyright 2013 Chris Wilson
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@ var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
-
+var date = new Date();
 /* TODO:
 
 - offer mono option
@@ -39,13 +40,12 @@ function saveAudio() {
 
 function drawWave( buffers ) {
     var canvas = document.getElementById( "wavedisplay" );
-	
+
     drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 }
 
 function doneEncoding( blob ) {
-    Recorder.forceDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
-    recIndex++;
+    Recorder.forceDownload( blob, date.getYear()+""+date.getMonth()+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds())
 }
 
 function toggleRecording( e ) {
