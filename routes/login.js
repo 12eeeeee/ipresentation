@@ -103,14 +103,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/presentPPT', function(req, res){
-     console.log('presentPPT=>get');
-        res.render('presentPPT', {
-            user : req.user,
-            Article : req.Article,
-            cPage : req.cookies.cPage
-        });
-    });
+
   
     app.get('/practicePPT', function(req, res){
      console.log('practicePPT=>get');

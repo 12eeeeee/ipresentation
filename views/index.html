@@ -161,7 +161,7 @@ table {
                 		flex-direction: column;
                 		justify-content: space-around;
                 		align-items: center;
-						background-color:white;
+						background-color:transparent;
                 	}
                 	@media (orientation: landscape) {
                 		body { flex-direction: row;}
@@ -182,8 +182,8 @@ table {
 		
 		
 		<div data-role="header">
-	<h8><br/> &nbsp;Choice&nbsp;your position... <br/></h8>
-	</div>
+			&nbsp;Choice&nbsp;your position...         
+		</div>
 
 
 		<div data-role="content" id="wrap">
@@ -234,10 +234,10 @@ table {
 		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
 				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
         
@@ -288,24 +288,25 @@ table {
 
 <div data-theme="b" id="lmenu" data-role="page" data-url="lmenu">
 
-	<div class="bmenu" id="menu" data-position="right" data-role="panel">
+		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Llist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a href="Plist.html">PPT목록</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
-        
-        
-		<div data-role="header">
 
+
+
+		<div data-role="header">
 			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
-			<h1 align="center">PPT 목록 보기</h1>
+			<h1 align="center">Listener&nbsp;Mode</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
-		<div data-role="content">
+
+		<div id="wrap" data-role="content">
        	<div style="margin-top: 20px;">
 			<table>
 				<tbody><tr id="c1">
@@ -339,10 +340,10 @@ table {
 		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
 				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
 
@@ -412,13 +413,13 @@ table {
 
 <div data-theme="b" id="L_comment" data-role="page" data-url="L_comment">
 
-		<div class="menu" id="menu" data-position="right" data-role="panel">
+		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
 				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
 
@@ -490,10 +491,10 @@ table {
 		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
 				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
 
@@ -572,10 +573,10 @@ table {
 		<div class="bmenu" id="menu" data-position="right" data-role="panel">
 			<ul data-theme="b" data-inset="true" data-role="listview">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="#page">Home</a></li>
+				<li><a data-panel="main" href="#page">Home</a></li>
 				<li><a href="#page">로그아웃</a></li>
 				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a href="#my">마이페이지</a></li>
+				<li><a data-panel="main" href="#my">마이페이지</a></li>
 			</ul>
 		</div>
 

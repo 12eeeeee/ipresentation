@@ -7,7 +7,7 @@ var Article = new Schema({
     date	: { type: String, default: '' },
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
-    slide : [],
+    slide :  { type: String, default: '' },
     recordReal : {type : String},
     recordPractice : []
 });

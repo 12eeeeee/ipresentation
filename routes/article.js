@@ -72,31 +72,44 @@ module.exports = function (app) {
 
     app.post('/canvas', function(req, res){
         var cPage = req.cookies.cPage;
+        var TEMP;
         var SLIST = req.body.SLIST;
         var JLIST = req.body.JLIST;
         console.log('canvas is made');
         console.log('cPage : '+cPage);
         console.log('JLIST : '+req.body.JLIST);
         console.log('SLIST : '+req.body.SLIST);
-
-
+        console.log('SLIST TYPE ::'+ typeof SLIST);
+     //   SLIST = Object.toJSON(SLIST);
 /*    Article.remove({ptname:cPage}, function(err){
         if(err) return handleError(eror);
         console.log('remove!');
     })*/
-    Article.update({ptname:cPage}, {'slide' : SLIST} , {upsert:true,multi:false} , function(err,data){
-        if(err)
-            console.log(err);
-    });
+//    SLIST = JSON.stringify(SLIST);
+    //  console.log(SLIST);
 
-      
-    Article.findOne({ ptname : cPage }, function(err, doc, count){
-         //   Article.remove(Article.slide);
-            console.log('Target Status : '+ doc.slide);
-            if(err)
-              console.log(err);
-        });
-       res.redirect('/Pmenu/'+cPage);
+          Article.update({ptname:cPage}, {'slide' : SLIST} , {upsert:true,multi:false} , function(err,data){
+              if(err)
+                  console.log(err);
+                else{
+                  //console.log(SLIST); 
+                  console.log('--------------지금까지 SLIST였음'); 
+                  console.log(typeof SLIST);
+              }
+          });
+
+            
+          Article.findOne({ ptname : cPage }, function(err, doc, count){
+               //   Article.remove(Article.slide);
+                  console.log('Target Status : '+ doc.slide);
+                  if(err)
+                    console.log(err);
+                  TEMP = doc.slide;
+                  console.log('TEMP :: ' + TEMP);
+              });
+
+              //res.cookie('SLIDE', TEMP);
+              res.redirect('/Pmenu/'+cPage);
 
 
     });
@@ -106,6 +119,36 @@ module.exports = function (app) {
         res.render('canvas', {user : req.user , Article : req.Article, cPage : cPage});
 
     });
+   //res.render('Plist', {user : req.user, Article : Article});
+
+
+
+    app.get('/presentPPT', function(req, res){
+         console.log('presentPPT=>get');
+         var cPage = req.cookies.cPage;
+         var presentPPT_TEMP;
+
+         Article.findOne({ ptname : cPage }, function(err, doc, count){
+         //   Article.remove(Article.slide);
+            console.log('Target Status : '+ doc.slide);
+            if(err)
+              console.log(err);
+            presentPPT_TEMP = doc.slide;
+
+            console.log('presentPPT_TEMP :: ' + presentPPT_TEMP);
+            console.log('presentPPT_TEMP type' + typeof presentPPT_TEMP);
+        
+
+        res.render('presentPPT', {
+            user : req.user,
+            Article : req.Article,
+            cPage : cPage,
+            SLIDE : presentPPT_TEMP
+        });
+        });
+
+    });
+
    //res.render('Plist', {user : req.user, Article : Article});
 }
 
