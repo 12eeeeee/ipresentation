@@ -1,4 +1,4 @@
-<body>
+
   <head>
     <style type="text/css">
    body{
@@ -8,9 +8,10 @@
    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js">
    </script>
   </head>
+  <body onload ="LoadPT()">
    <div data-role="page" id="canvas" data-theme="b">
    
-
+  
 
     <div data-role="panel" data-position="right" id="menu" class="bmenu">
       <ul data-role="listview" data-inset="true" data-theme="b">
@@ -37,7 +38,7 @@
     <tr width=100%>
       <td align="center">
         <div id="viz">
-            <canvas id="canvas22" class="lower-canvas"width="550" height="300" ></canvas>
+            <canvas id="canvas22" class="lower-canvas"width="550" height="300" style="border:1 solid #5D5D5D"></canvas>
         </div>
       </td>
     </tr>   
@@ -49,22 +50,27 @@
           <input type="button" onclick="g_circle()" value="circle"  data-inline="true">
           <input type="button" onclick="g_rect()" value="rectangular" data-inline="true">
           <button id="clear-canvas" data-inline="true" >delete</button>
-          <input type="button" onclick="load_()" value="call" data-inline="true">
+          <input type="button" onclick="LoadPT()" value="call" data-inline="true">
           </div>
-          <div data-role="controlgroup" data-type="horizontal">
-          <button onclick="addText()" data-inline="true">Add text</button>
-          <textarea style="margin:0px;" id="textinput" rows="3" ></textarea>
-           </div>
 
+          <span class="ui-grid-a" data-role="controlgroup" data-type="horizontal" style="width:100%">
+            <span class = "ui-block-a" style="width:17%">
+            <button onclick="addText()" data-inline="true" display="inline-block">Add text</button>
+            </span>
+            <span class = "ui-block-b" style="width:45%">
+            <textarea id="textinput" rows="3" display="inline-block"></textarea>
+            </span>
+           </span>
 
           <form action = '/canvas' method="post" onSubmit = 'alert('저장 되었습니다')';>
           <div data-role="controlgroup" data-type="horizontal">
-              <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="white">
+              <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="#FFFFFF">
               <input type="button" id="colorBtn" onclick ="colorChange()" data-inline="true" value="colorChange">
               <input type="button" id="capture" onclick="capture1()" data-inline="true" value="Capture">
               <input type="button" value=" clear All " onclick="del()" data-inline="true">
               <input type="hidden" id="JLIST" name ="JLIST">
-              <input type="hidden" id="SLIST" name ="SLIST">
+              <input type="hidden" id="SLIST" name ="SLIST" value=<%=SLIDE%>>
+
               <input type="submit" value="save" onclick="save1()" data-inline="true" >
            </div>
          </form>
@@ -84,16 +90,63 @@
         var currentSlide=0;
         var json;
         var jList = [];
-       var sList = [];
-       var firstCaptureData;
+        var sList = [];
+        var firstCaptureData;
         var canvas = this.__canvas = new fabric.Canvas('canvas22', {isDrawingMode: false}); 
-            
+        
+        var colorbtn = document.getElementById('picker');
+
+
+        colorbtn.addEventListener('change', function(){
+            var color = $('#picker').val(); 
+            var obj = canvas.getActiveObject();
+            var objGroup = canvas.getActiveGroup();
+
+            if(objGroup){
+              var objectsInGroup = objGroup.getObjects();
+
+                  objectsInGroup.forEach(function(obj) {
+                   obj.set('fill', color);
+                 });
+              
+            }else{            
+            obj.set('fill', color);
+            }
+
+            canvas.renderAll();
+        }, false);
+
+        function LoadPT(){
+          
+
+           var SLIST1 = document.getElementById('SLIST').value;
+
+           alert('이전에 작업 중이던 목록을 불러 옵니다.');
+            sList = JSON.parse(SLIST1);
+             if(sList.length>0)
+             {
+
+                for(i in sList)
+                {
+                  
+                  var PtView = document.getElementById('board2');
+                  var id = document.createElement('span');
+                  id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+i+' src ="'+ sList[i] +'" class = "sList" onclick="load('+ i+')">';
+
+                  PtView.appendChild(id);
+                }
+             }
+
+
+       }
+
         function colorChange()
         {
-          var color = $('#picker').val(); 
-          var obj = canvas.getActiveObject();
-          obj.set('fill', color);
-          canvas.renderAll();
+            var color = $('#picker').val(); 
+            var obj = canvas.getActiveObject();
+          
+            obj.set('fill', color);
+            canvas.renderAll();
         }
         function g_circle()
         {   var color = $('#picker').val(); 
@@ -112,12 +165,12 @@
         {
           var color = 'white';
               color = $('#picker').val();
-          var textInput;
-          var userInput = document.getElementById('textinput');
-          if(userInput == undefined) 
-            textInput = "NEW TEXT";
-          else 
+
+          var textInput = "NEW TEXT";
+          var userInput = document.getElementById('textinput').value;
+          if(userInput != undefined) 
             textInput = userInput;
+
 
            var object = new fabric.IText(textInput, { 
             fontFamily: "myFirstFont", 
@@ -130,7 +183,7 @@
           });
           // object.setColor(color);
           canvas.add(object);
-          canvas.render(this);
+          canvas.renderAll();
 
           $("#textinput").keyup(function(event) {
           //document.getElementById('textinput').addEventListener('keyup', function (e) {
@@ -141,8 +194,10 @@
             obj.setText(event.target.value);
             
             canvas.renderAll();
-
+            userInput = '';
           });
+
+          document.getElementById('textinput').value = '';
         }
 
     
@@ -163,10 +218,10 @@
            canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
         }
         */
-       
-        $(document).ready(function() {
-             var $ = function(id){return document.getElementById(id)};            
 
+
+        $(document).ready(function() {
+             var $ = function(id){return document.getElementById(id)};           
              fabric.Object.prototype.transparentCorners = false;
 
              var clearEl = $('clear-canvas');
@@ -187,24 +242,53 @@
                  canvas.remove(activeObject);
                } 
              };
+
+/*            var SLIST = document.getElementById('SLIST').value;
+
+            if(sList.length>0) //이전에 작업 하던 내용이 있는 경우!!
+             {
+                alert('이전에 작업 중이던 목록을 불러 옵니다.');
+                sList = JSON.parse(SLIST);//JSON -> Array 로 변환 
+                for(i in sList)
+                {
+                  
+                  var PtView = document.getElementById('board2');
+                  var id = document.createElement('span');
+                  id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+i+' src ="'+ sList[i] +'" class = "sList" onclick="load('+ i+')">';
+
+                  PtView.appendChild(id);
+                }
+             }else {
+              alert('새로 작업합니다.');
+              return; //새로 작업 하는 경우 여기서 리턴!!
+            } */
            });
 
 
       function capture1(){
+         canvas.deactivateAll().renderAll();
          var src     = canvas.toDataURL("image/png"); 
            //    alert(src);
+               var activeObject = canvas.getActiveObject(),
+                    activeGroup = canvas.getActiveGroup();
 
+ /*               if(activeGroup){
+                  var objectsInGroup = activeGroup.getObjects();
+                  canvas.discardActiveGroup();
+
+                }else{
+                  canvas.discardActiveObject;
+                }
+*/
                var img     = document.createElement('img');
                img.src     = src; 
         
                //document.getElementById('board').appendChild(img);
                sList.push(img.src); 
 
-
-               alert('저장 src확인'+sList[sList.length-1]);
-               
+    
                var PtView = document.getElementById('board2');
-               var id = document.createElement('div');
+               var id = document.createElement('span');
                id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+(sList.length-1)  +' src ="'+ img.src +'" class = "sList" onclick="load('+ (sList.length-1)+')">';
 
                PtView.appendChild(id);
@@ -240,8 +324,8 @@
             alert('saved!');
             
             document.getElementById("JLIST").value = jList;
-            document.getElementById("SLIST").value = JSON.stringify(sList);
-             alert(document.getElementById("SLIST").value); //잘됬나확인 
+            document.getElementById("SLIST").value = JSON.stringify(sList); // Array -> JSON으로 변환 
+        //     alert(document.getElementById("SLIST").value); //잘됬나확인 
       }
 
 
