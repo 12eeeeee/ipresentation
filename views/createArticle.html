@@ -1,0 +1,57 @@
+<html>
+<meta charset="UTF-8">
+<body>
+<div data-theme="b" id="createArticle" data-role="page">
+    <div data-role="panel" data-position="right" id="menu" class="bmenu">
+      <ul data-role="listview" data-inset="true" data-theme="b">
+        <li data-role="list-divider">Insight Presentation</li>
+        <li><a href="/" data-panel="main">Home</a></li>
+        <li><a href="/logout">로그아웃</a></strong></li>
+        <li><a href="/Plist">PPT목록</a></strong></li>
+        <li><a href="#my" data-panel="main">마이페이지</a></li>
+      </ul>
+    </div>
+
+		
+
+		<div data-role="header">
+			<a data-icon="back" data-role="button" href="/login">back</a>
+			<h1 align="center">PPT information</h1>
+			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+		</div>
+		<div data-role="content">
+			<label><h1>PPT&nbsp;Information</h1></label>
+			<form action="/createArticle" method="post" id="Ptinfo">
+				<div data-role="fieldcontail">
+					<label for="ptname">PPT 제목 : </label> <input type="text" name="ptname" id="ptname">
+				</div>
+
+				<div data-role="fieldcontail">
+					<label for="date">PPT 날짜 : </label> <input type="date" value="2014-02-05" id="date" name="date">
+				</div>
+
+				<div data-role="fieldcontail">
+					<label for="place"> 발표장소 : </label> <input type="text" name="place" id="place">
+				</div>
+
+				<div data-role="fieldcontail">
+					<fieldset data-role="controlgroup">
+						<label> 공유 여부 </label> <label for="share"> 공유 </label> <input type="radio" name="share" id="share"> <label for="noshare">
+							공유하지 않음 </label> <input type="radio" name="share" id="noshare">
+					</fieldset>
+				</div>
+
+				<div data-role="fieldcontail">
+					<label for="ptpw"> 비밀번호 설정 : </label> <input type="password" name="ptpw_" id="ptpw">
+				</div>
+
+				<input type="submit" value="확인">
+			</form>
+		</div>
+        
+        
+		<div data-position="fixed" data-role="footer">
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+	</div>
+</body>
+</html>

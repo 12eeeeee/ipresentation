@@ -1,0 +1,98 @@
+
+<div data-role="page" id="ex_control" data-theme="b">
+
+		<div data-role="panel" data-position="right" id="menu" class="bmenu">
+			<ul data-role="listview" data-inset="true" data-theme="b">
+				<li data-role="list-divider">Insight Presentation</li>
+				<li><a href="index.html" data-panel="main">Home</a></li>
+				<li><a href="index.html">로그아웃</a></li>
+				<li><a href="Plist.html">PPT목록</a></li>
+				<li><a href="#my" data-panel="main">마이페이지</a></li>
+			</ul>
+		</div>
+
+
+
+		<div data-role="header">
+			<a href="pmenu.html" data-role="button" data-icon="back" data-rel="external">back</a>
+			<h1 align="center">PPT 연습하기</h1>
+			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+           
+		</div>
+        
+		<div data-role="content">            
+            
+			<table style="width: 100%" style="height:100%">
+				<tr>
+					<td>
+                        <div>
+                			<canvas id="analyser" height="50" width="100" style="border:10px doted red;display:none"></canvas>
+                            <canvas id="wavedisplay" width="50" height="100" style="display:none"></canvas>
+            			</div>
+		           		<div>
+                        <table width="100%">
+                        	<tr>
+                          <td colspan=2 align="center">
+						  <div>
+						<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
+           						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example1.Timer.toggle();">
+								<img id="stop" src="stopstop48.png" onclick="saveAudio();">
+								<img id="init_" src="stop.png" onclick="Example1.resetStopwatch();">&nbsp;&nbsp; 
+                   				<input type="hidden" id = "R_NAME" name="R_NAME"/>
+                				<input type="hidden" id = "R_blob" name="R_blob"/>
+                				<input type="image" src="save.png" alt="Submit Form" onclick="saveAudio();"/>
+								&nbsp;&nbsp; &nbsp;&nbsp;                  
+                        	<br/><br/><span id="stopwatch2">00:00:00</span> &nbsp;&nbsp;  
+							</div>
+            			</form>
+                            </tr>
+                        
+                        </table>
+                        </div>
+					</td>
+				</tr>
+				<tr>
+
+
+					<td width="100%">슬라이드</td>
+
+
+				</tr>
+				<tr>
+					<td width="100%">
+						<center>
+							<div data-role="controlgroup" data-type="horizontal">
+								<a href="#page3" id="back" data-role="button" data-icon="back"
+									data-inline="true">이전</a> <a href="#" id="next"
+									data-role="button" data-icon="forward" data-inline="true">다음</a>
+							</div>
+
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td width="100%">
+						<div data-role="content">
+							<form id="rlist" method="post" action="#">
+								<div data-role="fieldcontail">
+
+									<label for="ptlist"></label> <select id="ptlist" name="ptlist"
+										data-native-menu="true">
+
+										<option value="list1">PPT1</option>
+
+										<option value="list2">PPT2</option>
+
+										<option value="list3">PPT3</option>
+
+									</select>
+								</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+        
+        <div data-role="footer" data-position="fixed">
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+        </div>

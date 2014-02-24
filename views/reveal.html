@@ -1,0 +1,133 @@
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+		
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+		<script>
+
+			function SetupPT()
+			{
+				alert('호출!');
+				var get = parent.document.getElementById('getSList').value;
+
+				SList = JSON.parse(get);
+				alert(typeof SList);
+				
+				var PtView = document.getElementById('VIEW');
+
+				 
+			 
+				 for(i in SList)
+				 {
+				 	alert('SList' + i + 'is ' + SList[i]);
+      			   var id = document.createElement('section');
+      			   /*var img = document.createElement('img');
+      			   img.src = myData[i];*/
+        
+
+            	   id.innerHTML = '<img id='+i+' src ="'+ SList[i] +'" >';
+
+           	    					//'<img src="'+SLIST+'['+i+'].src">'
+             	  PtView.appendChild(id);
+         		  }
+
+         		  var id2 = document.createElement('section');
+         		  id2.innerHTML = '<h1>THE END' +' </h1>'+					
+         		  					'<h3>BY 10 to 10'+'</h3>';
+         		  PtView.appendChild(id2);
+        	   alert('PT Ready!');
+			}
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		  <style type="text/css">
+		  	html,body, img{
+		  		height:100%;
+		  		width:100%;
+		  		color: rgba(127,0,255,1);
+		  	}
+		  	img { border: none;
+		  		  color : rgba(127,0,255,1); }
+
+
+		  </style>
+	</head>
+
+	<body  onload = "SetupPT()">
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" id ="VIEW">
+
+				<section>
+					<h1>i Presentation</h1>
+					<h3>HTML Presentations Made Easy</h3>
+					<p>
+						<small>Created by 10 to 10</a></small>
+					</p>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+		<!-- controldeck.js -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/controldeck-slides.js"></script>
+
+	</body>
+</html>
