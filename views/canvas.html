@@ -1,13 +1,25 @@
 <body>
+<<<<<<< HEAD
   <head>
     <style type="text/css">
    body{
         font-family:"맑은 고딕";
+=======
+	<head>
+	  <style type="text/css">
+   body{
+   			font-family:"맑은 고딕";
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
    }
    </style>
    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js">
    </script>
+<<<<<<< HEAD
   </head>
+=======
+
+	</head>
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
    <div data-role="page" id="canvas" data-theme="b">
    
 
@@ -15,9 +27,15 @@
     <div data-role="panel" data-position="right" id="menu" class="bmenu">
       <ul data-role="listview" data-inset="true" data-theme="b">
         <li data-role="list-divider">Insight Presentation</li>
+<<<<<<< HEAD
         <li><a href="/" data-panel="main">Home</a></li>
         <li><a href="/logout">로그아웃</a></strong></li>
         <li><a href="/Plist">PPT목록</a></strong></li>
+=======
+        <li><a href="#page" data-panel="main">Home</a></li>
+        <li><a href="#page">로그아웃</a></strong></li>
+        <li><a href="#Plist">PPT목록</a></strong></li>
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
         <li><a href="#my" data-panel="main">마이페이지</a></li>
       </ul>
     </div>
@@ -25,7 +43,11 @@
 
 
     <div data-role="header">
+<<<<<<< HEAD
       <a href="/Pmenu/<%=cPage%>" data-role="button" data-icon="back">back</a>
+=======
+      <a href="pmenu.html" data-role="button" data-icon="back" data-rel="external">back</a>
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
       <h1 align="center">PPT 만들기</h1>
       <a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
            
@@ -33,6 +55,7 @@
         
     <div data-role="content" data-type="horizontal">            
       
+<<<<<<< HEAD
   <table style="width: 100%" style="height:100%">
     <tr width=100%>
       <td align="center">
@@ -41,10 +64,25 @@
         </div>
       </td>
     </tr>   
+=======
+        <table style="width: 100%" style="height:100%"  >
+     <tr width=100%>
+      <td align="center">
+            <div id="viz">
+            <canvas id="canvas22" class="lower-canvas" style="border: 1px solid rgb(170, 170, 170);"   width="550" height="300" ></canvas>
+           </div>
+         </td>
+       </tr>   
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
           
            
     <tr width="100%">
         <td width="100%" align="center">
+<<<<<<< HEAD
+=======
+          
+          
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
           <div data-role="controlgroup" data-type="horizontal" align="center">
           <input type="button" onclick="g_circle()" value="circle"  data-inline="true">
           <input type="button" onclick="g_rect()" value="rectangular" data-inline="true">
@@ -57,20 +95,35 @@
            </div>
 
 
+<<<<<<< HEAD
           <form action = '/canvas' method="post" onSubmit = 'alert('저장 되었습니다')';>
           <div data-role="controlgroup" data-type="horizontal">
               <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="white">
               <input type="button" id="colorBtn" onclick ="colorChange()" data-inline="true" value="colorChange">
+=======
+          <form action = '/canvas' method="post" onSubmit = alert('저장 되었습니다');>
+          <div data-role="controlgroup" data-type="horizontal">
+              <label for="color" style="margin-left:10px" data-inline="true">Color: </label>
+              <input type="color" style="width:40px" bind-value-to="fill" id="picker" data-inline="true">
+              <input type="button" onclick="bgColor_()"  value="bgcolor" data-inline="true">
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
               <input type="button" id="capture" onclick="capture1()" data-inline="true" value="Capture">
               <input type="button" value=" clear All " onclick="del()" data-inline="true">
               <input type="hidden" id="JLIST" name ="JLIST">
               <input type="hidden" id="SLIST" name ="SLIST">
               <input type="submit" value="save" onclick="save1()" data-inline="true" >
            </div>
+<<<<<<< HEAD
          </form>
       </td>
             </tr>
         
+=======
+        
+      </td>
+            </tr>
+         </form>
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
         <tr width="100%">
         <td width="100%" >
             <div id="board"></div>
@@ -83,11 +136,16 @@
         var count = 0;
         var currentSlide=0;
         var json;
+<<<<<<< HEAD
         var jList = [];
+=======
+         var jList = [];
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
        var sList = [];
        var firstCaptureData;
         var canvas = this.__canvas = new fabric.Canvas('canvas22', {isDrawingMode: false}); 
             
+<<<<<<< HEAD
         function colorChange()
         {
           var color = $('#picker').val(); 
@@ -98,18 +156,28 @@
         function g_circle()
         {   var color = $('#picker').val(); 
             var circle = new fabric.Circle({ radius: 30, fill: color, top: 100, left: 100 });
+=======
+        function g_circle()
+        {   
+            var circle = new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 });
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
            canvas.add(circle);  
         }
         
         function g_rect()
         {
+<<<<<<< HEAD
            var color = $('#picker').val();
            var rect = new fabric.Rect({ left: 100, top: 100, fill: color , width: 100, height: 100 });
+=======
+           var rect = new fabric.Rect({ left: 100, top: 100, fill: 'green', width: 100, height: 100 });
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
            canvas.add(rect);   
         }
 
         function addText()
         {
+<<<<<<< HEAD
           var color = 'white';
               color = $('#picker').val();
           var textInput;
@@ -120,21 +188,32 @@
             textInput = userInput;
 
            var object = new fabric.IText(textInput, { 
+=======
+           var object = new fabric.IText("NEW TEXT", { 
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
             fontFamily: "myFirstFont", 
             left: 150,
             top: 100,
             fontSize: 40,
             textAlign: "left",
+<<<<<<< HEAD
             fill: color
             //fontColor: 'white'
           });
           // object.setColor(color);
           canvas.add(object);
           canvas.render(this);
+=======
+            fill: "#000000"
+          });
+          canvas.add(object);
+          canvas.renderAll();
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 
           $("#textinput").keyup(function(event) {
           //document.getElementById('textinput').addEventListener('keyup', function (e) {
             // alert("hi");
+<<<<<<< HEAD
             var color = $('#picker').val(); 
             var obj = canvas.getActiveObject();
             if (!obj) return;
@@ -142,10 +221,17 @@
             
             canvas.renderAll();
 
+=======
+            var obj = canvas.getActiveObject();
+            if (!obj) return;
+            obj.setText(event.target.value);
+            canvas.renderAll();
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
           });
         }
 
     
+<<<<<<< HEAD
 /*        function bgColor_()
         {
           var color = $('#picker').val();  
@@ -153,6 +239,15 @@
           canvas.renderAll();
         }
 */
+=======
+        function bgColor_()
+        {
+          var color = $('#picker').val();  
+          canvas.backgroundColor = color;
+          canvas.renderAll();
+        }
+
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 /*        function save_()
         {
            json = window._json = canvas.toJSON();
@@ -196,12 +291,22 @@
 
                var img     = document.createElement('img');
                img.src     = src; 
+<<<<<<< HEAD
         
                //document.getElementById('board').appendChild(img);
                sList.push(img.src); 
 
 
                alert('저장 src확인'+sList[sList.length-1]);
+=======
+               img.style.width = '150px';
+               img.style.height = '100px';
+               img.style.border = 'solid';
+               img.style.cursor = 'pointer'; // 커서 지정
+
+               //document.getElementById('board').appendChild(img);
+               sList.push(img); 
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
                
                var PtView = document.getElementById('board2');
                var id = document.createElement('div');
@@ -217,6 +322,11 @@
              currentSlide = (jList.length-1);
       }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
     function load(i){
       var src     = canvas.toDataURL("image/png");
       //캔버스 로드 후 이전 슬라이드 미리보기 변경을 위한 소스
@@ -240,11 +350,68 @@
             alert('saved!');
             
             document.getElementById("JLIST").value = jList;
+<<<<<<< HEAD
             document.getElementById("SLIST").value = JSON.stringify(sList);
              alert(document.getElementById("SLIST").value); //잘됬나확인 
       }
 
 
+=======
+            document.getElementById("SLIST").value = sList;
+      }
+
+      
+      
+
+
+/*     function test(){
+
+        alert('test');
+        alert(count);
+        var F = document.createElement('div');
+         alert('Frame'+count+'');
+        F.id = 'Frame'+count+'';
+         alert('F' + count + 'is called');
+        document.getElementById(F.id).innerHTML = 'F ' + count + ' is called';
+
+        if(count == 0){
+        alert('0');
+        document.getElementById('FullFrame').appendChild(F);
+        }else{
+          var Parent = 'Frame' + (count-1)+'';
+          doucment.getElementById(Parent).appendChild(F);
+        }
+       
+        count++;
+
+
+        alert('end');
+      }
+*/
+
+
+ /*     function test2(){
+
+       
+        ThirdFrame.id = 'ThirdFrame'+cnt;
+        ThirdFrame.style.width = '100px';
+        ThirdFrame.style.height = '50px';
+        ThirdFrame.style.border = 'solid';
+        ThirdFrame.style.cursor = 'pointer'; 
+        SecondFrame.innerHTML = 'Third Frame';
+      }
+
+      function test3(){
+
+       
+        LastFrame.id = 'LastFrame'+cnt;
+        LastFrame.style.width = '50px';
+        LastFrame.style.height = '10px';
+        LastFrame.style.border = 'solid';
+        LastFrame.style.cursor = 'pointer'; 
+        (ThirdFrame.id).innerHTML = 'Third Frame';
+      }*/
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 
         </script>        
       

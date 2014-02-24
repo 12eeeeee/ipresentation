@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+window.addEventListener('load', initAudio );
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 /* Copyright 2013 Chris Wilson
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,13 +48,20 @@ function drawWave( buffers ) {
 }
 
 function doneEncoding( blob ) {
+<<<<<<< HEAD
     Recorder.forceDownload( blob, date.getYear()+""+date.getMonth()+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds());
+=======
+    Recorder.forceDownload( blob, date.getYear()+""+date.getMonth()+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds())
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 }
 
 function toggleRecording( e ) {
     if (e.classList.contains("recording")) {
         // stop recording
+<<<<<<< HEAD
         alert.co321
+=======
+>>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
         audioRecorder.stop();
         e.classList.remove("recording");
         audioRecorder.getBuffers( drawWave );
