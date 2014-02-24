@@ -18,20 +18,13 @@ DEALINGS IN THE SOFTWARE.
 */
 
 var recLength = 0,
-<<<<<<< HEAD
 recBuffersL = [],
 recBuffersR = [],
 sampleRate;
-=======
-  recBuffersL = [],
-  recBuffersR = [],
-  sampleRate;
->>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 
 this.onmessage = function(e){
   switch(e.data.command){
     case 'init':
-<<<<<<< HEAD
     init(e.data.config);
     break;
     case 'record':
@@ -49,25 +42,6 @@ this.onmessage = function(e){
     case 'clear':
     clear();
     break;
-=======
-      init(e.data.config);
-      break;
-    case 'record':
-      record(e.data.buffer);
-      break;
-    case 'exportWAV':
-      exportWAV(e.data.type);
-      break;
-    case 'exportMonoWAV':
-      exportMonoWAV(e.data.type);
-      break;
-    case 'getBuffers':
-      getBuffers();
-      break;
-    case 'clear':
-      clear();
-      break;
->>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
   }
 };
 
@@ -127,11 +101,7 @@ function interleave(inputL, inputR){
   var result = new Float32Array(length);
 
   var index = 0,
-<<<<<<< HEAD
   inputIndex = 0;
-=======
-    inputIndex = 0;
->>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
 
   while (index < length){
     result[index++] = inputL[inputIndex];

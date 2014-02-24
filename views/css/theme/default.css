@@ -91,13 +91,8 @@ body {
  *********************************************/
 .reveal section img {
   margin: 15px 0px;
-<<<<<<< HEAD
   background: rgba(255, 255, 255, 0);
   border: 0px solid #eeeeee;
-=======
-  background: rgba(255, 255, 255, 0.12);
-  border: 4px solid #eeeeee;
->>>>>>> 5fcbf51e574fba3dfb1061f8cba9715d1796faa1
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   -webkit-transition: all .2s linear;
   -moz-transition: all .2s linear;
