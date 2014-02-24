@@ -26,98 +26,98 @@ DEALINGS IN THE SOFTWARE.
     var bufferLen = config.bufferLen || 4096;
     this.context = source.context;
     if(!this.context.createScriptProcessor){
-      this.node = this.context.createJavaScriptNode(bufferLen, 2, 2);
-    } else {
-      this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
+     this.node = this.context.createJavaScriptNode(bufferLen, 2, 2);
+   } else {
+     this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
+   }
+   
+   var worker = new Worker(WORKER_PATH);
+   worker.postMessage({
+    command: 'init',
+    config: {
+      sampleRate: this.context.sampleRate
     }
+  });
+   var recording = false,
+   currCallback;
 
-    var worker = new Worker(WORKER_PATH);
+   this.node.onaudioprocess = function(e){
+    if (!recording) return;
     worker.postMessage({
-      command: 'init',
-      config: {
-        sampleRate: this.context.sampleRate
-      }
+      command: 'record',
+      buffer: [
+      e.inputBuffer.getChannelData(0),
+      e.inputBuffer.getChannelData(1)
+      ]
     });
-    var recording = false,
-    currCallback;
+  }
 
-    this.node.onaudioprocess = function(e){
-      if (!recording) return;
-      worker.postMessage({
-        command: 'record',
-        buffer: [
-        e.inputBuffer.getChannelData(0),
-        e.inputBuffer.getChannelData(1)
-        ]
-      });
-    }
-
-    this.configure = function(cfg){
-      for (var prop in cfg){
-        if (cfg.hasOwnProperty(prop)){
-          config[prop] = cfg[prop];
-        }
+  this.configure = function(cfg){
+    for (var prop in cfg){
+      if (cfg.hasOwnProperty(prop)){
+        config[prop] = cfg[prop];
       }
     }
+  }
 
-    this.record = function(){
-      recording = true;
-    }
+  this.record = function(){
+    recording = true;
+  }
 
-    this.stop = function(){
-      recording = false;
-    }
+  this.stop = function(){
+    recording = false;
+  }
 
-    this.clear = function(){
-      worker.postMessage({ command: 'clear' });
-    }
+  this.clear = function(){
+    worker.postMessage({ command: 'clear' });
+  }
 
-    this.getBuffers = function(cb) {
-      currCallback = cb || config.callback;
-      worker.postMessage({ command: 'getBuffers' })
-    }
+  this.getBuffers = function(cb) {
+    currCallback = cb || config.callback;
+    worker.postMessage({ command: 'getBuffers' })
+  }
 
-    this.exportWAV = function(cb, type){
-      currCallback = cb || config.callback;
-      type = type || config.type || 'audio/wav';
-      if (!currCallback) throw new Error('Callback not set');
-      worker.postMessage({
-        command: 'exportWAV',
-        type: type
-      });
-    }
+  this.exportWAV = function(cb, type){
+    currCallback = cb || config.callback;
+    type = type || config.type || 'audio/wav';
+    if (!currCallback) throw new Error('Callback not set');
+    worker.postMessage({
+      command: 'exportWAV',
+      type: type
+    });
+  }
 
-    this.exportMonoWAV = function(cb, type){
-      currCallback = cb || config.callback;
-      type = type || config.type || 'audio/wav';
-      if (!currCallback) throw new Error('Callback not set');
-      worker.postMessage({
-        command: 'exportMonoWAV',
-        type: type
-      });
-    }
+  this.exportMonoWAV = function(cb, type){
+    currCallback = cb || config.callback;
+    type = type || config.type || 'audio/wav';
+    if (!currCallback) throw new Error('Callback not set');
+    worker.postMessage({
+      command: 'exportMonoWAV',
+      type: type
+    });
+  }
 
-    worker.onmessage = function(e){
-      var blob = e.data;
-      currCallback(blob);
-    }
+  worker.onmessage = function(e){
+    var blob = e.data;
+    currCallback(blob);
+  }
 
-    source.connect(this.node);
-this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
-};
+  source.connect(this.node);
+    this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
+  };
 
-Recorder.forceDownload = function(blob, filename){
-////서버에 저장 
-var reader = new FileReader();
-reader.onload = function(event){
-  STORE.R_NAME = filename;
-  STORE.R_blob = event.target.result;
-  STORE.R_blob = STORE.R_blob.replace(/^data:audio\/wav;base64,/,"");
-};
+  Recorder.forceDownload = function(blob, filename){
+    ////서버에 저장 
+    var reader = new FileReader();
+    reader.onload = function(event){
+      STORE.R_NAME = filename;
+      STORE.R_blob = event.target.result;
+      STORE.R_blob = STORE.R_blob.replace(/^data:audio\/wav;base64,/,"");
+    };
+    
+    reader.readAsDataURL(blob);
 
-reader.readAsDataURL(blob);
-
-return;
+    return;
 ///////////////////////////////////////////////////  기기에 저장 
 var url = (window.URL || window.webkitURL).createObjectURL(blob);
 var link = window.document.createElement('a');

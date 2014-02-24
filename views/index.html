@@ -201,6 +201,168 @@
 <!--------------------- 청중 발표 듣기 창 #Listen_pt ------------------- -->
 
 
+
+
+		<!--------------------- 청중 발표 평가 창 (별/코멘트)  #L_commet-------------------------->
+		<!--------------------- 청.평가창 코멘트+했을때 입력 창(등록) --------------------- -->
+
+		<div data-theme="b" id="L_comment" data-role="page" data-url="L_comment">
+
+			<div data-role="panel" data-position="right" id="menu" class="bmenu">
+			  <ul data-role="listview" data-inset="true" data-theme="b">
+			    <li data-role="list-divider">Insight Presentation</li>
+			    <li><a href="/" data-panel="main">Home</a></li>
+			    <li><a href="/logout">로그아웃</a></strong></li>
+			    <li><a href="/Plist">PPT목록</a></strong></li>
+			    <li><a href="#my" data-panel="main">마이페이지</a></li>
+			  </ul>
+			</div>
+
+
+
+			<div data-role="header">
+				<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
+				<h1 align="center">PPT 평가 하기</h1>
+				<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+			</div>
+
+			<div data-role="content">
+
+				<div >
+					<a data-transition="flip" data-icon="comment" data-role="button" href="#writecomment">평가남기기</a><br/><br/>
+
+					<div data-role="collapsible-set">
+						<div id="com1" data-role="collapsible">
+							<h3>제목1</h3>
+
+							<p>내용1  For all those folks still actively using jQuery 1.2.6, 
+								we want to provide a legacy release of the jQuery UI library based on 1.6rc2 that ports 
+								over as many bug fixes and improvements as possible from more recent code updates to provide a clear, s
+								table foundation that will be fully compatible with jQuery 1.2.6. To avoid any confusion, 
+								this version will be called jQuery UI 1.6 final. Since this will be a legacy release,
+								the team will not be actively developing this code once it is finalized. Also, 
+								this release will not contain any changes related to the new jQuery UI CSS Framework.
+								It will have the same theming support as jQuery UI 1.5.3.</p>
+							</div>		
+							<div id="com2" data-role="collapsible">
+								<h3>제목2</h3>
+								<p>내용2</p>
+
+							</div>		
+
+							<div id="com3" data-role="collapsible">
+								<h3>제목3</h3>
+
+								<p>내용1</p>
+							</div>		
+							<div id="com4" data-role="collapsible">
+								<h3>제목4</h3>
+
+								<p>내용1</p>
+							</div>		
+
+						</div>	
+					</div>
+				</div>	
+
+
+				<div data-position="fixed" data-role="footer">
+					<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+
+				</div>
+
+
+
+
+
+<!-- ------------------------- 청중 글쓰기 창 id=writecomment --------------------------- -->
+
+
+
+
+<div data-theme="b" id="writecomment" data-role="page" data-url="writecomment">
+
+
+		<div data-role="panel" data-position="right" id="menu" class="bmenu">
+		  <ul data-role="listview" data-inset="true" data-theme="b">
+		    <li data-role="list-divider">Insight Presentation</li>
+		    <li><a href="/" data-panel="main">Home</a></li>
+		    <li><a href="/logout">로그아웃</a></strong></li>
+		    <li><a href="/Plist">PPT목록</a></strong></li>
+		    <li><a href="#my" data-panel="main">마이페이지</a></li>
+		  </ul>
+		</div>
+
+
+
+		<div data-role="header">
+			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
+			<h1 align="center">발표 평가하기</h1>
+			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+		</div>
+		<div data-role="content">
+			<label><h1>Write&nbsp;Comment</h1></label>
+			
+				<div data-role="fieldcontail">
+					<label for="comment_name">제목 : </label> <input type="text" name="name3_" id="comment_name">
+						<br>
+				</div>
+				
+				<div>
+				
+				<label for="write_commnet">발표 평가 (500자이내) : </label> <textarea cols="500" rows="500" name="write_comment" id="comment_text"></textarea>
+				<br>
+				
+				</div>
+						
+				
+				
+	<div data-type="horizontal" data-role="controlgroup"  align="center">
+		
+		<div data-role="fieldcontail">
+			<fieldset data-type="horizontal" data-role="controlgroup">
+				<legend></legend>
+				<!-- 그룹의 제목-->
+				<input type="checkbox" name="star" id="star1">
+				<label for="star1">★</label>
+				<input type="checkbox" name="star" id="star2">
+				<label for="star2">★</label>
+				<input type="checkbox" name="star" id="star3">
+				<label for="star3">★</label>
+				<input type="checkbox" name="star" id="star4">
+				<label for="star4">★</label>
+				<input type="checkbox" name="star" id="star5">
+				<label for="star5">★</label>
+			</fieldset>
+		</div>		
+
+	</div>
+
+<!-- 	<br> <br>
+	<div data-role="fieldcontail">
+		<form method="post" acrion="a.jsp"> 
+			<center>
+			 서버쪽에서 둘중 뭐 써야하는지? 고르기 
+				<a data-transition="flip" data-icon="check" style="width: 200px" data-role="button" href="#writeOK">OK</a>
+				<input type="submit" value="확인">
+			</center>
+		</form>
+	</div> -->
+
+</div>
+<div data-position="fixed" data-role="footer">
+	<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> 
+</div>
+</div>
+
+
+
+
+
+
+
+
+
 <!------------------------ 청중다시듣기 리모콘 #L_replay_control-------------------------->
 
 <!--------------------- 로그인 창 ------------------------ -->

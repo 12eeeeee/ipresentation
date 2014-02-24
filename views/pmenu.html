@@ -3,36 +3,36 @@
 <meta content="width=device-width,maximum-scale=1, user-scalable=no" name="viewport">
 <title>Insight Presentation</title>
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
-
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+ 
 
 <script type="text/javascript">
-var num = 0;
-function addItem() {
+  var num = 0;
+  function addItem() {
 
-	var list1 = $("#list1").append(
-		"&lt;li&gt;&lt;a href='#Plist' id='list'"+(++num)+"&gt;Item" + (num) + "&lt;/a&gt;&lt;/li&gt;");
-	list1.listview("refresh");
-}
+    var list1 = $("#list1").append(
+        "&lt;li&gt;&lt;a href='#Plist' id='list'"+(++num)+"&gt;Item" + (num) + "&lt;/a&gt;&lt;/li&gt;");
+    list1.listview("refresh");
+  }
 </script>
 
 <script type="text/javascript">
-var num = 1;
-function addItem1() {
+  var num = 1;
+  function addItem1() {
 
-	var list2 = $("#list2").append(
-		"&lt;li&gt;&lt;a href='#Llist'&gt;Item" + (++num) + "&lt;/a&gt;&lt;/li&gt;");
-	list2.listview("refresh");
-}
+    var list2 = $("#list2").append(
+        "&lt;li&gt;&lt;a href='#Llist'&gt;Item" + (++num) + "&lt;/a&gt;&lt;/li&gt;");
+    list2.listview("refresh");
+  }
 </script>
 
-
-<style type="text/css">
-body{
-	font-family:"맑은 고딕";
-}
-
+  
+   <style type="text/css">
+   body{
+   			font-family:"맑은 고딕";
+   }
+    
 #a {
 	height: 100%;
 
@@ -40,7 +40,7 @@ body{
 
 #b {
 	height: 100%;
-
+	
 }
 
 #c td{
@@ -68,7 +68,7 @@ table {
 }
 
 #b1 {
-
+	
 	text-align: center;
 }
 
@@ -86,23 +86,23 @@ table {
 </head>
 <body class="ui-mobile-viewport ui-overlay-d">
 
+	
+	
+	<div data-theme="b" id="pmenu" data-role="page" data-url="pmenu">
+   
+ 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
+ 	  <ul data-role="listview" data-inset="true" data-theme="b">
+ 	    <li data-role="list-divider">Insight Presentation</li>
+ 	    <li><a href="/" data-panel="main">Home</a></li>
+ 	    <li><a href="/logout">로그아웃</a></strong></li>
+ 	    <li><a href="/Plist">PPT목록</a></strong></li>
+ 	    <li><a href="#my" data-panel="main">마이페이지</a></li>
+ 	  </ul>
+ 	</div>
 
 
-	<div data-theme="b" id="pmenu" data-role="page">
 
-		<div data-role="panel" data-position="right" id="menu" class="bmenu">
-			<ul data-role="listview" data-inset="true" data-theme="b">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a href="/" data-panel="main">Home</a></li>
-				<li><a href="/logout">로그아웃</a></strong></li>
-				<li><a href="/Plist">PPT목록</a></strong></li>
-				<li><a href="#my" data-panel="main">마이페이지</a></li>
-			</ul>
-		</div>
-
-
-
-		<div data-role="header">
+   <div data-role="header">
 
 			<a data-icon="back" data-role="button" href="/Plist">back</a>
 			<h1 align="center">Presenter&nbsp;Mode</h1>
@@ -110,7 +110,7 @@ table {
 		</div>
 		<h2> <center> Title : <%=cPage%>  </center></h2>
 		<div id="wrap" data-role="content">
-			<!--   <div style="margin-top:20px;"> -->
+     <!--   <div style="margin-top:20px;"> -->
 
 			<table>
 				<tbody><tr id="c1"> <!-- 02.19 #canvas -> /canvas -->
@@ -122,15 +122,15 @@ table {
 				<tr id="c1">
 					<td><a id="a1" data-transition="flip" data-role="button" href="/presentPPT"><br/><br/>Present<br>PPT<br/><br/>
 					</a></td>
-					<td><a id="b1" data-transition="flip" data-role="button" href="/check_comment"><br/><br/>Check<br>Comment<br/><br/>
+					<td><a id="b1" data-transition="flip" data-role="button" href="#check_comment"><br/><br/>Check<br>Comment<br/><br/>
 					</a></td>
 				</tr>
 			</tbody></table>
 		</div>
-	</div> 
-	<div data-position="fixed" data-role="footer">
-		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation</h4> </div>
-	</div>
-</body>
-</html>    
+		</div> 
+        <div data-position="fixed" data-role="footer">
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+       	</div>
+			</body>
+				</html>    
 

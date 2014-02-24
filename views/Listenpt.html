@@ -12,14 +12,14 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
 
 
-<div data-theme="b" id="Listen_pt" data-role="page">
+<div data-theme="b" id="Listen_pt" data-role="page" data-url="Listenpt">
 
 		<div data-role="panel" data-position="right" id="menu" class="bmenu">
 		  <ul data-role="listview" data-inset="true" data-theme="b">
 		    <li data-role="list-divider">Insight Presentation</li>
 		    <li><a href="/" data-panel="main">Home</a></li>
 		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Llist">PPT목록</a></strong></li>
+		    <li><a href="/Plist">PPT목록</a></strong></li>
 		    <li><a href="#my" data-panel="main">마이페이지</a></li>
 		  </ul>
 		</div>
@@ -27,7 +27,7 @@
 
 
 		<div data-role="header">
-			<a data-icon="back" data-role="button" href="/Lmenu/<%=cPage%>">back</a>
+			<adata-icon="back" data-role="button" href="/Lmenu">back</a>
 			<h1 align="center">현재 발표 듣기</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
@@ -53,16 +53,16 @@
 					<td width="100%" colspan="2">
 								<div data-role="fieldcontail">
 								<form action="/Listenpt" method="post" id="commentForm" onSubmit = "alert('commented')" data-ajax="false">
-									<label for="comment"> 한줄 코멘트 남기기 : </label><input type="text" name="comment" id="comment">									
-									<input type="submit" value="확인" onclick = "document.forms['commentForm'].submit();">	
+									<label for="line_comment"> 한줄 코멘트 남기기 : </label><input type="text" name="comment" id="line_comment">									
+									<input type="submit" value="확인" onclick = "comment_func(this)">	
 								</form>
 								</div>
 								<div>
-								
+									<ul data-role="listview" id="commentlist">
 										<% Article.forEach( function(Article){ %>
-											<div> comment :  <%=Article.message%>  user : <%=Article.writer%> </div>
+											<li> <a>comment :  <%=Article.board.message%>  user : <%=Article.board.writer%></a></li>
 										<% }); %>
-
+									</ul>
 								</div>
 					</td>
 				</tr>
@@ -100,7 +100,6 @@
 			form.submit();
 			alert("a");
 		}
-
 	</script>
 
 </body>

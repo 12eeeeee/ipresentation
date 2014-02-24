@@ -1,23 +1,5 @@
 
-<body onload="SetUpAudio()">
-
-<input type="hidden" id="returnData" name="returnData"value = <%=returnData%>>
-<script>
-	function SetUpAudio()
-	{
-		var reader = new FileReader();
-		alert('audio set!');
-		var returnData = JSON.parse(document.getElementById('returnData').value);
-		alert(returnData);
-		alert(document.getElementById('returnData').value);
-		
-		 
-		 reader.readAsDataURL(returnData.fileContent);
-
-	}
-</script>
-
-<div data-theme="b" id="L_replay_control" data-role="page" >
+<div data-theme="b" id="L_replay_control" data-role="page" data-url="L_replay_control">
 
 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
 	  <ul data-role="listview" data-inset="true" data-theme="b">
@@ -38,14 +20,13 @@
 	</div>
 	<div data-role="content">
 		<table style="width: 100%">
-
-			<input type='button' onclick="loadFile()">
+			
 			<tbody><tr>
 				<td width="100%" colspan="2">
 					<div data-role="fieldcontail">
 						<%=Article.recordReal%>
 						<audio controls autoplay>
-							<!-- <source src=audio.src type="audio/wav"> -->
+							<source src=<%=Article.recordReal%> type="audio/wav">
 							</audio>
 						</div>
 					</td>
@@ -57,14 +38,13 @@
 							<a data-icon="video" data-role="button" href="#">▶</a>
 							<a data-icon="delete" data-role="button" href="#">■</a> 
 							<a data-icon="audio" data-role="button" href="#">소리</a>
-							<input type = "button" onclick = "SetUpAudio()"/>
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td colspan=2 height="500px" width="50%"> 
-						<iframe width="100%" height="100%" src="reveal.html"></iframe>
+					<td width="100%" colspan="2">슬라이드보이는창
+						<a data-inline="true" data-icon="action" data-role="button" id="fullscreen">전체화면</a>
 					</td>
 				</tr>
 
@@ -100,4 +80,4 @@
 		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
 	</div>
 	
-</body>
+
