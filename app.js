@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-var express = require('express')
-    , routes = require('./routes')
-    , user = require('./routes/user')
-    , article = require('./model/article')
-    , http = require('http')
+ var express = require('express')
+ , routes = require('./routes')
+ , user = require('./routes/user')
+ , article = require('./model/article')
+ , http = require('http')
     , cons = require('consolidate') // Templating library adapter for Express
     , swig = require('swig')
     , path = require('path')
@@ -16,7 +16,7 @@ var express = require('express')
     , LocalStrategy = require('passport-local').Strategy
     , ejs = require('ejs'); // HTML <% %>
 
-var app = express();
+    var app = express();
 
 app.use(express.bodyParser());  //페이지간 이동 시 정보 전달 (위치가 중요 !)
 /////////////////////////////////////////////////로그인
@@ -100,6 +100,7 @@ app.configure('production', function(){
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.use (express.static(__dirname + '/views'));
+app.use (express.static(__dirname + '/views/js'));
 app.engine('.html', ejs.__express);
 //app.engine('html', cons.swig);
 app.set('view engine', 'html');
@@ -175,7 +176,7 @@ io.sockets.on('connection', function(socket){
     socket.on('key down', function(data){
         socket.broadcast.emit('key down', data);
     });
-
+    
     socket.on('key up', function(data){
         socket.broadcast.emit('key up', data);
     });
@@ -194,31 +195,31 @@ io.sockets.on('connection', function(socket){
 
 
     socket.on('join',function(data){
-    var id=data.Userid;
-    var pass=data.Password;
-    console.log('회원가입요청');
-    console.log(id);
-    console.log(pass);
-      CommentModel.findOne({"ID":id},function(error,data){
-        if(data===null){
-          console.log("해당 가입자 없음");
-                var comment = new CommentModel();
-                comment.ID = id;
-                comment.PASSWORD = pass;
-                comment.STARTNUM=0;
-                comment.save(function (err) {
-                    if (!err) {
-                      console.log('가입 성공!');
-                     socket.emit('errormessage',{'error':'가입 성공했습니다. 로그인하세요.'});
-                            }
-                });
-        }
-        else{
-             console.log("이미 가입했음");
-                socket.emit('errormessage',{'error':'이미 존재하는 아이디입니다.'});
-        }
-    });  
- });
+        var id   =data.Userid;
+        var pass =data.Password;
+        console.log('회원가입요청');
+        console.log(id);
+        console.log(pass);
+        CommentModel.findOne({"ID":id},function(error,data){
+            if(data===null){
+              console.log("해당 가입자 없음");
+              var comment = new CommentModel();
+              comment.ID = id;
+              comment.PASSWORD = pass;
+              comment.STARTNUM=0;
+              comment.save(function (err) {
+                if (!err) {
+                  console.log('가입 성공!');
+                  socket.emit('errormessage',{'error':'가입 성공했습니다. 로그인하세요.'});
+              }
+          });
+          }
+          else{
+           console.log("이미 가입했음");
+           socket.emit('errormessage',{'error':'이미 존재하는 아이디입니다.'});
+       }
+   });  
+    });
 });
- 
+
 

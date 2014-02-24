@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta content="width=device-width,maximum-scale=1, user-scalable=no" name="viewport">
 <title>Insight Presentation</title>
-	  
-	<link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
 
 
 <!--------------------녹음 스크립트 선언부 -------------->
@@ -23,479 +23,274 @@
 
 
 <!-----------------캔버스 스크립트  캡처 ---------->
-
-<script type="text/javascript">
-	
-	
-
-   function capture(){
-              	
-              	
-              	
-               var canvas = document.getElementById('canvas22');
-               var ctx1    = canvas.getContext('2d');
-
-              
-
-
-            	
-               img.onclick = function(){
-            
-               var canvas = document.getElementById('canvas22');
-               var ctx1    = canvas.getContext('2d');
-            
-            //   ctx1.fillStyle='rgba(255,255,255,1)';
-            //   ctx1.fillRect(0,0,canvas.width,canvas.height);
-               ctx1.clearRect(0,0,canvas.width, canvas.height);
-
-               ctx1.drawImage(img, 0, 0);
-
-               canvas.toDataURL("image/png"); 
-
-          //      alert(canvas.toDataURL().toString()); // 변환된 문자열 이 보임
-
-                var target = document.getElementById('target');
-               //20140213 target.innerHTML = "<img src='"+canvas.toDataURL().toString()+"'>"; //타겟 엘리먼트에 innerHTML
-               };
-
-
-               
-        
-    
-      }
-
-     
-      function del(){
-            document.getElementById('board').innerHTML = '';
-      }
-
-   </script>
+       <!--------------------------------list동적추가 스크립트 코드  ------------------- -->
 
 
 
-<!--------------------------------list동적추가 스크립트 코드  ------------------- -->
+       <!----------------------메뉴테이블들  효과 크기 ------- -->
+       <style type="text/css">
+       body{
+       	font-family:"맑은 고딕";
+       }
+
+       #a {
+       	height: 100%;
+
+       }
+
+       #b {
+       	height: 100%;
+
+       }
+
+       #c td{
+       	width:50%;
+       }
+
+       #d td{
+       	height: 10%;
+       }
+
+
+       table {
+       	width: 100%;
+       	height:40%;
+       }
+
+
+       #wrap1 {
+       	height: 40%;
+
+       }
+
+       #a1 {	
+       	text-align: center;
+       }
+
+       #b1 {
+
+       	text-align: center;
+       }
+
+       #c1 {
+       	height: 100%;
+       }
+
+       #c1 td{
+       	width: 50%;
+       	height :100%;
+       } 
+
+       <!--------------------------녹음기능 레이아웃 스타일 ----------------------->
+
+       canvas { 
+       	display: inline-block; 
+       	background: transparent; 
+       	width: 95%;
+       	height: 45%;
+       	box-shadow: 0px 0px 10px blue;
+       }
+       #controls {
+       	display: flex;
+       	flex-direction: row;
+       	align-items: center;
+       	justify-content: space-around;
+       	height: 20%;
+       	width: 100%;
+       }
+       #record { height: 15vh; }
+       #record.recording { 
+       	background: red;
+       	background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+       }
+       #save { height: 10vh; }
+       #viz {
+       	height: 80%;
+       	width: 100%;
+       	display: flex;
+       	flex-direction: column;
+       	justify-content: space-around;
+       	align-items: center;
+       }
+       @media (orientation: landscape) {
+       	body { flex-direction: row;}
+       	#controls { flex-direction: column; height: 100%; width: 10%;}
+       	#viz { height: 100%; width: 90%;}
+       }
+
+
+       </style>
+
+   </head>
+   <body>
+
+
+   	<!------------------------- 첫화면 ------------------------- -->
+
+   	<div data-role="page" id="page" data-theme="b">
+
+
+   		<div data-role="header">
+   			&nbsp;Choice&nbsp;your position...         
+   		</div>
+
+
+   		<div data-role="content" id="wrap">
+
+   			<table>
+   				<% if(user) { %>
+   				<div>
+   					<h2> WELCOME <%= user.username%></h2>
+   					<% } else { %>
+   					<h3>	WELCOME!  </h3>
+
+   					<% }%>
+   					<tr id="c">
+   						<td><a href="/Plist" data-role="button" id="a"  data-transition="flip"><br />
+   							<br />
+   							<br />
+   							<br /><h2>Are<br />you<br/>Presenter?<br/><br/><br/><br/><br/></h2></a></td>
+   							<td><a href="/Llist" data-role="button" id="b" data-transition="flip"><br />
+   								<br />
+   								<br />
+   								<br /><h2>Are<br>you<br/>Listener?<br/><br/><br/><br/><br/></h2></a></td>
+   							</tr>
+   							<tr id="d">
+   								<td colspan="2">
+   									<% if(user) {%>
+   									<a href="/logout" data-transition="flip" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="d" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text"><h3>Logout</h3></span></span></a>
+   									<%} else {%>
+   									<a href="/login" data-transition="flip" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="d" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text"><h3>Login</h3></span></span></a>
+   									<% } %></td>
+   								</tr>
+   							</table>
+   							<center>
+   							</center></div>
+
+   							<div data-position="fixed" data-role="footer" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   								<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+
+   							</div>
+
+
+   							<!--------------------- 발표자 PPT목록 ----------------------- -->
+
+
+   							<!--------------------- 청중 PPT목록 ----------------------- -->
 
 
 
- <!----------------------메뉴테이블들  효과 크기 ------- -->
-  <style type="text/css">
-   body{
-   			font-family:"맑은 고딕";
-   }
-    
-#a {
-	height: 100%;
-
-}
-
-#b {
-	height: 100%;
-	
-}
-
-#c td{
-	width:50%;
-}
-
-#d td{
-	height: 10%;
-}
 
 
-table {
-	width: 100%;
-	height:40%;
-}
+   							<!--------------------- PPT 만들기 정보입력------------------ -->
 
 
-#wrap1 {
-	height: 40%;
+   							<!----------------- PPT제작하는 Canvas창(id-canvas) ---------------->
 
-}
-
-#a1 {	
-	text-align: center;
-}
-
-#b1 {
-	
-	text-align: center;
-}
-
-#c1 {
-	height: 100%;
-}
-
-#c1 td{
-	width: 50%;
-	height :100%;
-} 
-
-<!--------------------------녹음기능 레이아웃 스타일 ----------------------->
-
- 	canvas { 
-                		display: inline-block; 
-                		background: #202020; 
-                		width: 95%;
-                		height: 45%;
-                		box-shadow: 0px 0px 10px blue;
-                	}
-                	#controls {
-                		display: flex;
-                		flex-direction: row;
-                		align-items: center;
-                		justify-content: space-around;
-                		height: 20%;
-                		width: 100%;
-                	}
-                	#record { height: 15vh; }
-                	#record.recording { 
-                		background: red;
-                		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
-                	}
-                	#save { height: 10vh; }
-                	#viz {
-                		height: 80%;
-                		width: 100%;
-                		display: flex;
-                		flex-direction: column;
-                		justify-content: space-around;
-                		align-items: center;
-						background-color:white;
-                	}
-                	@media (orientation: landscape) {
-                		body { flex-direction: row;}
-                		#controls { flex-direction: column; height: 100%; width: 10%;}
-                		#viz { height: 100%; width: 90%;}
-                	}
-					
-
-</style>
-
- </head>
- <body>
- 
- 
-   <!------------------------- 첫화면 ------------------------- -->
-   
-<div data-role="page" id="page" data-theme="b">
-		
-		
-		<div data-role="header">
-			&nbsp;Choice&nbsp;your position...         
-		</div>
+   							<!------------ 발표자 리모컨 1 (연습) -------------------->  
 
 
-		<div data-role="content" id="wrap">
-			
-				<table>
-					<% if(user) { %>
-					<div>
-					<h2> WELCOME <%= user.username%></h2>
-					<% } else { %>
-					<h3>	WELCOME!  </h3>
-		
-					<% }%>
-				<tr id="c">
-					<td><a href="/Plist" data-role="button" id="a"  data-transition="flip"><br />
-						<br />
-                        <br />
-                  		<br /><h2>Are<br />you<br/>Presenter?<br/><br/><br/><br/><br/></h2></a></td>
-					<td><a href="/Llist" data-role="button" id="b" data-transition="flip"><br />
-						<br />
-                        <br />
-                       	<br /><h2>Are<br>you<br/>Listener?<br/><br/><br/><br/><br/></h2></a></td>
-				</tr>
-				<tr id="d">
-					<td colspan="2">
-						<% if(user) {%>
-						<a href="/logout" data-transition="flip" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="d" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text"><h3>Logout</h3></span></span></a>
-						<%} else {%>
-						<a href="login.html" data-transition="flip" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="d" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text"><h3>Login</h3></span></span></a>
-						<% } %></td>
-				</tr>
-			</table>
-            <center>
-		</center></div>
-        
-		<div data-position="fixed" data-role="footer" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
-		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-	
-  </div>
-
-
-<!--------------------- 발표자 PPT목록 ----------------------- -->
-
-    
- <!--------------------- 청중 PPT목록 ----------------------- -->
- 
-<!-- <div data-theme="b" id="Llist" data-role="page" data-url="Llist">
-
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
-		</div>
-        
-        
-		<div data-role="header">
-
-			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
-			<h1 align="center">PPT 목록 보기</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
-		</div>
-		
-		<div data-role="content">        
-        
-			<ul data-role="listview" id="list2">
-				<li  data-icon="plus"><a href="javascript:addItem1();" >Add</a></li>
-              	<li><a href="#ptinfo">Item1</a></li>
-			</ul>
-			
-			<div style="margin-top: 30px;">
-				<a data-transition="flip" data-icon="check" data-role="button" href="#lmenu">Select</a>
-
-			</div>
-		</div>
-
-		<div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-	</div> -->
-	
-	
-	
-	
-	
-<!--------------------- PPT 만들기 정보입력------------------ -->
-
-
- <!----------------- PPT제작하는 Canvas창(id-canvas) ---------------->
-   
-  <!------------ 발표자 리모컨 1 (연습) -------------------->  
-  
-  
 <!--------------------- 발표자 리모컨 2 (실전) real_control----------------------------->
-	<!--------	실전은 녹음 하자마자 청중들 다시듣기 공유로 서버로 넘어가기 + list목록에 추가 -------->
+<!--------	실전은 녹음 하자마자 청중들 다시듣기 공유로 서버로 넘어가기 + list목록에 추가 -------->
 <!--------------------- 발표자 평가 확인 Form #check_comment-------------------------->
 
 
 
 <!--------------- 청중모드 기능 3가지 메인화면 lmenu ---------------------->
 
-<div data-theme="b" id="lmenu" data-role="page" data-url="lmenu">
-
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
-		</div>
+<!--------------------- 청중 발표 듣기 창 #Listen_pt ------------------- -->
 
 
 
-		<div data-role="header">
-			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
-			<h1 align="center">Listener&nbsp;Mode</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
-		</div>
 
-		<div id="wrap" data-role="content">
-       	<div style="margin-top: 20px;">
-			<table>
-				<tbody><tr id="c1">
-					<td><a data-transition="flip" id="a1" data-role="button" href="/Listenpt"><br><br>Go
-							<br>current PPT<br><br><br>
-					</a></td>
-					<td><a data-transition="flip" id="b1" data-role="button" href="#L_comment"><br><br>Estimate<br>PPT<br><br><br>
-					</a></td>
-				</tr>
-				<tr id="c1">
-					<td><a data-transition="flip" id="a1" data-role="button" href="#L_replay_control"><br><br>Re-Listening
-							<br>PPT<br><br><br>
-					</a></td>
-				</tr>
-			</tbody></table>
+		<!--------------------- 청중 발표 평가 창 (별/코멘트)  #L_commet-------------------------->
+		<!--------------------- 청.평가창 코멘트+했을때 입력 창(등록) --------------------- -->
+
+		<div data-theme="b" id="L_comment" data-role="page">
+
+			<div data-role="panel" data-position="right" id="menu" class="bmenu">
+			  <ul data-role="listview" data-inset="true" data-theme="b">
+			    <li data-role="list-divider">Insight Presentation</li>
+			    <li><a href="/" data-panel="main">Home</a></li>
+			    <li><a href="/logout">로그아웃</a></strong></li>
+			    <li><a href="/Plist">PPT목록</a></strong></li>
+			    <li><a href="#my" data-panel="main">마이페이지</a></li>
+			  </ul>
 			</div>
-        </div>
-        
-		<div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-        
-        
-	</div>
 
 
 
-<!--------------------- 청중 발표 듣기 창 #Listen_pt --------------------->
+			<div data-role="header">
+				<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
+				<h1 align="center">PPT 평가 하기</h1>
+				<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
+			</div>
 
-<!--<div data-theme="b" id="Listen_pt" data-role="page" data-url="Listen_pt">
+			<div data-role="content">
 
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
-		</div>
+				<div >
+					<a data-transition="flip" data-icon="comment" data-role="button" href="#writecomment">평가남기기</a><br/><br/>
 
+					<div data-role="collapsible-set">
+						<div id="com1" data-role="collapsible">
+							<h3>제목1</h3>
 
-
-		<div data-role="header">
-			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
-			<h1 align="center">현재 발표 듣기</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
-		</div>
-		<div data-role="content">
-			<table style="width: 100%">
-				<tbody><tr>
-					<td width="100%" colspan="2">슬라이드보이는창</td>
-
-
-				</tr>
-				<tr>
-					<td width="100%" colspan="2">
-						<center>
-							<div data-type="horizontal" data-role="controlgroup">
-								<a data-inline="true" data-icon="back" data-role="button" id="back" href="#page3">이전</a> <a data-inline="true" data-icon="forward" data-role="button" id="next" href="#">다음</a>
-							</div>
-
-						</center>
-					</td>
-				</tr>
-				
-				<tr>
-					<td width="100%" colspan="2">
-								<div data-role="fieldcontail">
-								<label for="line_comment"> 한줄 코멘트 남기기 : </label><input type="text" name="name_" id="line_comment"> <input type="submit" value="확인">	
-								</div>
-					</td>
-				</tr>
-				
-				
-				<tr>
-					<td width="100%" colspan="2">
-						<div role="content" data="">
-							<form action="#" method="post" id="rlist">
-								<div data-role="fieldcontail">
-
-									<label for="ptlist"></label> <select data-native-menu="true" name="ptlist" id="ptlist">
-
-										<option value="list1">PPT1</option>
-
-										<option value="list2">PPT2</option>
-
-										<option value="list3">PPT3</option>
-
-									</select>
-								</div>
-					</form></div></td>
-				</tr>
-			</tbody></table>
-		</div>
-        
-        <div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-        </div>-->
-
-
-
-<!--------------------- 청중 발표 평가 창 (별/코멘트)  #L_commet-------------------------->
-	<!--------------------- 청.평가창 코멘트+했을때 입력 창(등록) ----------------------->
-
-<div data-theme="b" id="L_comment" data-role="page" data-url="L_comment">
-
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
-		</div>
-
-
-
-		<div data-role="header">
-			<a data-rel="back" data-icon="back" data-role="button" href="#">back</a>
-			<h1 align="center">PPT 평가 하기</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
-		</div>
-
-<div data-role="content">
-	
-			<div >
-				<a data-transition="flip" data-icon="comment" data-role="button" href="#writecomment">평가남기기</a><br/><br/>
-		
-				<div data-role="collapsible-set">
-					<div id="com1" data-role="collapsible">
-						<h3>제목1</h3>
-					
 							<p>내용1  For all those folks still actively using jQuery 1.2.6, 
-						we want to provide a legacy release of the jQuery UI library based on 1.6rc2 that ports 
-						over as many bug fixes and improvements as possible from more recent code updates to provide a clear, s
-						table foundation that will be fully compatible with jQuery 1.2.6. To avoid any confusion, 
-						this version will be called jQuery UI 1.6 final. Since this will be a legacy release,
-						 the team will not be actively developing this code once it is finalized. Also, 
-						 this release will not contain any changes related to the new jQuery UI CSS Framework.
-						  It will have the same theming support as jQuery UI 1.5.3.</p>
-					</div>		
-					<div id="com2" data-role="collapsible">
-						<h3>제목2</h3>
-						<p>내용2</p>
-					
-					</div>		
-					
-					<div id="com3" data-role="collapsible">
-						<h3>제목3</h3>
-					
-						<p>내용1</p>
-					</div>		
-					<div id="com4" data-role="collapsible">
-						<h3>제목4</h3>
-					
-						<p>내용1</p>
-					</div>		
-					
+								we want to provide a legacy release of the jQuery UI library based on 1.6rc2 that ports 
+								over as many bug fixes and improvements as possible from more recent code updates to provide a clear, s
+								table foundation that will be fully compatible with jQuery 1.2.6. To avoid any confusion, 
+								this version will be called jQuery UI 1.6 final. Since this will be a legacy release,
+								the team will not be actively developing this code once it is finalized. Also, 
+								this release will not contain any changes related to the new jQuery UI CSS Framework.
+								It will have the same theming support as jQuery UI 1.5.3.</p>
+							</div>		
+							<div id="com2" data-role="collapsible">
+								<h3>제목2</h3>
+								<p>내용2</p>
+
+							</div>		
+
+							<div id="com3" data-role="collapsible">
+								<h3>제목3</h3>
+
+								<p>내용1</p>
+							</div>		
+							<div id="com4" data-role="collapsible">
+								<h3>제목4</h3>
+
+								<p>내용1</p>
+							</div>		
+
+						</div>	
+					</div>
 				</div>	
-			</div>
-	</div>	
-	
-	
-<div data-position="fixed" data-role="footer">
-		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
 
-</div>
+
+				<div data-position="fixed" data-role="footer">
+					<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+
+				</div>
 
 
 
 
 
-<!--------------------------- 청중 글쓰기 창 id=writecomment ----------------------------->
+<!-- ------------------------- 청중 글쓰기 창 id=writecomment --------------------------- -->
 
 
 
 
-<div data-theme="b" id="writecomment" data-role="page" data-url="writecomment">
+<div data-theme="b" id="writecomment" data-role="page">
 
 
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
+		<div data-role="panel" data-position="right" id="menu" class="bmenu">
+		  <ul data-role="listview" data-inset="true" data-theme="b">
+		    <li data-role="list-divider">Insight Presentation</li>
+		    <li><a href="/" data-panel="main">Home</a></li>
+		    <li><a href="/logout">로그아웃</a></strong></li>
+		    <li><a href="/Plist">PPT목록</a></strong></li>
+		    <li><a href="#my" data-panel="main">마이페이지</a></li>
+		  </ul>
 		</div>
 
 
@@ -526,37 +321,39 @@ table {
 		
 		<div data-role="fieldcontail">
 			<fieldset data-type="horizontal" data-role="controlgroup">
-						<legend></legend><!--그룹의 제목-->
-						<input type="checkbox" name="star" id="star1">
-						<label for="star1">★</label>
-						<input type="checkbox" name="star" id="star2">
-						<label for="star2">★</label>
-						<input type="checkbox" name="star" id="star3">
-						<label for="star3">★</label>
-						<input type="checkbox" name="star" id="star4">
-						<label for="star4">★</label>
-						<input type="checkbox" name="star" id="star5">
-						<label for="star5">★</label>
+				<legend></legend>
+				<!-- 그룹의 제목-->
+				<input type="checkbox" name="star" id="star1">
+				<label for="star1">★</label>
+				<input type="checkbox" name="star" id="star2">
+				<label for="star2">★</label>
+				<input type="checkbox" name="star" id="star3">
+				<label for="star3">★</label>
+				<input type="checkbox" name="star" id="star4">
+				<label for="star4">★</label>
+				<input type="checkbox" name="star" id="star5">
+				<label for="star5">★</label>
 			</fieldset>
 		</div>		
 
+	</div>
+
+<!-- 	<br> <br>
+	<div data-role="fieldcontail">
+		<form method="post" acrion="a.jsp"> 
+			<center>
+			 서버쪽에서 둘중 뭐 써야하는지? 고르기 
+				<a data-transition="flip" data-icon="check" style="width: 200px" data-role="button" href="#writeOK">OK</a>
+				<input type="submit" value="확인">
+			</center>
+		</form>
+	</div> -->
+
 </div>
-				
-				<br> <br>
-				<div data-role="fieldcontail">
-					<form method="post" acrion="a.jsp"> 
-					<center>
-					<!--  서버쪽에서 둘중 뭐 써야하는지? 고르기 -->
-						<a data-transition="flip" data-icon="check" style="width: 200px" data-role="button" href="#writeOK">OK</a>
-						<input type="submit" value="확인">
-					</center>
-					</form>
-				</div>
-			
-		</div>
-		<div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-	</div>
+<div data-position="fixed" data-role="footer">
+	<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> 
+</div>
+</div>
 
 
 
@@ -566,100 +363,14 @@ table {
 
 
 
-	<!------------------------ 청중다시듣기 리모콘 #L_replay_control-------------------------->
-
-<div data-theme="b" id="L_replay_control" data-role="page" data-url="L_replay_control">
-
-		<div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
-				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="main" href="#page">Home</a></li>
-				<li><a href="#page">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
-			</ul>
-		</div>
-
-
-
-		<div data-role="header">
-			<a data-rel="external" data-icon="back" data-role="button" href="#lmenu">back</a>
-			<h1 align="center">PPT 다시듣기</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
-		</div>
-		<div data-role="content">
-			<table style="width: 100%">
-				
-				<tbody><tr>
-					<td width="100%" colspan="2">
-						<div data-role="fieldcontail">
-							<input type="range" name="name_" id="pt_range"> 
-						</div>
-					</td>
-				</tr>
-				
-				<tr>
-					<td align="center">
-						<div data-type="horizontal" data-role="controlgroup">
-							<a data-icon="video" data-role="button" href="#">▶</a>
-							<a data-icon="delete" data-role="button" href="#">■</a> <a data-icon="audio" data-role="button" href="#">소리</a>
-						</div>
-					</td>
-				</tr>
-				
-				<tr>
-
-					<td width="100%" colspan="2">슬라이드보이는창
-					<a data-inline="true" data-icon="action" data-role="button" id="fullscreen">전체화면</a>
-						</td>
-				</tr>
-				<tr>
-					<td width="100%" colspan="2">
-						<center>
-							<div data-type="horizontal" data-role="controlgroup">
-								<a data-transition="flip" data-inline="true" data-icon="back" data-role="button" id="back" href="#page3">이전</a> <a data-transition="flip" data-inline="true" data-icon="forward" data-role="button" id="next" href="#">다음</a>
-							</div>
-
-						</center>
-					</td>
-				</tr>
-				
-				
-				
-				
-				<tr>
-					<td width="100%" colspan="2">
-						<div role="content" data="">
-							<form action="#" method="post" id="rlist">
-								<div data-role="fieldcontail">
-
-									<label for="ptlist"></label> <select data-native-menu="true" name="ptlist" id="ptlist">
-
-										<option value="list1">PPT1</option>
-
-										<option value="list2">PPT2</option>
-
-										<option value="list3">PPT3</option>
-
-									</select>
-								</div>
-					</form></div></td>
-				</tr>
-			</tbody></table>
-		</div>
-        
-        <div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-	</div>
-    
-
+<!------------------------ 청중다시듣기 리모콘 #L_replay_control-------------------------->
 
 <!--------------------- 로그인 창 ------------------------ -->
-	
-  
 
 
-	<!------------------ 발표자 메뉴 #pmenu------------------------- -->
+
+
+<!------------------ 발표자 메뉴 #pmenu------------------------- -->
 
 
 <!--------------------- 회원가입 --------------------------- -->

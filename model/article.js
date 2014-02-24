@@ -8,12 +8,12 @@ var Article = new Schema({
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
     slide : [],
-    recordReal : {type : String},
-    recordPractice : [],
+    recordReal : {type : String, default:''},
+    recordPractice : {"_id" :  { type: String }, "record" : {type:String}},
     board : {
         writer : { type: String, default: '' },
         message : { type: String, default: '' }
-    } //20140221
+    }
 });
 
 var Slide = new Schema({

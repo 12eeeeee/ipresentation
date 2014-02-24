@@ -1,4 +1,3 @@
-window.addEventListener('load', initAudio );
 /* Copyright 2013 Chris Wilson
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,12 +44,13 @@ function drawWave( buffers ) {
 }
 
 function doneEncoding( blob ) {
-    Recorder.forceDownload( blob, date.getYear()+""+date.getMonth()+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds())
+    Recorder.forceDownload( blob, date.getYear()+""+date.getMonth()+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds());
 }
 
 function toggleRecording( e ) {
     if (e.classList.contains("recording")) {
         // stop recording
+        alert.co321
         audioRecorder.stop();
         e.classList.remove("recording");
         audioRecorder.getBuffers( drawWave );
