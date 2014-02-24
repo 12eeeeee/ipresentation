@@ -5,15 +5,14 @@ var mongoose = require('mongoose'),
 var Article = new Schema({
     ptname	: { type: String, default: '' },
     date	: { type: String, default: '' },
+    explain : { type: String, default: '' },
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
     slide : [],
     recordReal : {type : String, default:''},
     recordPractice : {"_id" :  { type: String }, "record" : {type:String}},
-    board : {
-        writer : { type: String, default: '' },
-        message : { type: String, default: '' }
-    }
+    writer : [{type:String}], // comment_writer
+    message : [{type:String}] // comment_message
 });
 
 var Slide = new Schema({

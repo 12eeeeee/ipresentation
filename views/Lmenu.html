@@ -94,7 +94,7 @@ table {
 		    <li data-role="list-divider">Insight Presentation</li>
 		    <li><a href="/" data-panel="main">Home</a></li>
 		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Plist">PPT목록</a></strong></li>
+		    <li><a href="/Llist">PPT목록</a></strong></li>
 		    <li><a href="#my" data-panel="main">마이페이지</a></li>
 		  </ul>
 		</div>
@@ -110,25 +110,33 @@ table {
 		<div id="wrap" data-role="content">
        	<div style="margin-top: 20px;">
 			<table>
-				<tbody><tr id="c1">
-					<td><a data-transition="flip" id="a1" data-role="button" href="/Listenpt"><br><br>Go
-							<br>current PPT<br><br><br>
-					</a></td>
-					<td><a data-transition="flip" id="b1" data-role="button" href="#L_comment"><br><br>Estimate<br>PPT<br><br><br>
-					</a></td>
-				</tr>
-				<tr id="c1">
-					<td><a data-transition="flip" id="a1" data-role="button" href="/L_replay_control">
-						<br><br>Re-Listening
-						<br>PPT<br><br><br>
-					</a></td>
-				</tr>
+				<tbody>
+					<tr id="c1">
+						<td colspan='2'>
+							<label for="ppt_explain"><h2>PPT Explain</h2></label>
+							<div name="ppt_explain" id="ppt_explain"><%=explain%></div>
+							<label for="ppt_date"><h2>PPT Date</h2></label>
+							<div name="ppt_date" id="ppt_date"><%=date%></div>
+							<label for="ppt_place"><h2>PPT Place</h2></label>
+							<div name="ppt_place" id="ppt_place"><%=place%></div>
+							<br/>
+						</td>
+					</tr>
+					<tr id="c1">
+						<td><a data-transition="flip" id="a1" data-role="button" href="/Listenpt"><br><br>Go
+								<br>current PPT<br><br><br>
+						</a></td>
+						<td><a data-transition="flip" id="a1" data-role="button" href="/L_replay_control">
+							<br><br>Re-Listening
+							<br>PPT<br><br><br>
+						</a></td>
+					</tr>
 			</tbody></table>
 			</div>
         </div>
         
 		<div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain"></h4> 
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation</h4> 
 		</div>        
 </div>
 

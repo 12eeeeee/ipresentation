@@ -1,3 +1,4 @@
+window.addEventListener('load', initAudio );
 /* Copyright 2013 Chris Wilson
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,20 +12,20 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-*/
+   */
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
+   window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-var audioContext = new AudioContext();
-var audioInput = null,
-    realAudioInput = null,
-    inputPoint = null,
-    audioRecorder = null;
-var rafID = null;
-var analyserContext = null;
-var canvasWidth, canvasHeight;
-var recIndex = 0;
-var date = new Date();
+   var audioContext = new AudioContext();
+   var audioInput = null,
+   realAudioInput = null,
+   inputPoint = null,
+   audioRecorder = null;
+   var rafID = null;
+   var analyserContext = null;
+   var canvasWidth, canvasHeight;
+   var recIndex = 0;
+   var date = new Date();
 /* TODO:
 
 - offer mono option
@@ -50,7 +51,6 @@ function doneEncoding( blob ) {
 function toggleRecording( e ) {
     if (e.classList.contains("recording")) {
         // stop recording
-        alert.co321
         audioRecorder.stop();
         e.classList.remove("recording");
         audioRecorder.getBuffers( drawWave );
@@ -141,30 +141,30 @@ function gotStream(stream) {
 
 //    audioInput = convertToMono( input );
 
-    analyserNode = audioContext.createAnalyser();
-    analyserNode.fftSize = 2048;
-    inputPoint.connect( analyserNode );
+analyserNode = audioContext.createAnalyser();
+analyserNode.fftSize = 2048;
+inputPoint.connect( analyserNode );
 
-    audioRecorder = new Recorder( inputPoint );
+audioRecorder = new Recorder( inputPoint );
 
-    zeroGain = audioContext.createGain();
-    zeroGain.gain.value = 0.0;
-    inputPoint.connect( zeroGain );
-    zeroGain.connect( audioContext.destination );
-    updateAnalysers();
+zeroGain = audioContext.createGain();
+zeroGain.gain.value = 0.0;
+inputPoint.connect( zeroGain );
+zeroGain.connect( audioContext.destination );
+updateAnalysers();
 }
 
 function initAudio() {
-        if (!navigator.getUserMedia)
-            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        if (!navigator.cancelAnimationFrame)
-            navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
-        if (!navigator.requestAnimationFrame)
-            navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+    if (!navigator.getUserMedia)
+        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    if (!navigator.cancelAnimationFrame)
+        navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+    if (!navigator.requestAnimationFrame)
+        navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
     navigator.getUserMedia({audio:true}, gotStream, function(e) {
-            console.log(e);
-        });
+        console.log(e);
+    });
 }
 
 window.addEventListener('load', initAudio );

@@ -1,6 +1,22 @@
 
 <body onload="SetUpAudio()">
 
+<input type="hidden" id="returnData" name="returnData"value = <%=returnData%>>
+<script>
+	function SetUpAudio()
+	{
+		var reader = new FileReader();
+		alert('audio set!');
+		var returnData = JSON.parse(document.getElementById('returnData').value);
+		alert(returnData);
+		alert(document.getElementById('returnData').value);
+		
+		 
+		 reader.readAsDataURL(returnData.fileContent);
+
+	}
+</script>
+
 <div data-theme="b" id="L_replay_control" data-role="page" >
 
 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
@@ -21,37 +37,7 @@
 		<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 	</div>
 	<div data-role="content">
-		<script>
-			function SetUpAudio()
-			{
-				var reader = new FileReader();
-				alert('audio set!');
-		/*		var returnData = JSON.parse(document.getElementById('returnData').value);
-				alert(returnData);
-				alert(document.getElementById('returnData').value);
-				
-				 
-				 reader.readAsDataURL(returnData.fileContent);
-		*/
-			}
-			function loadFile(){
-
-			        var audio = new Audio();
-			        var returnValue = document.getElementById('returnData').value;
-
-			        var replaceValue = returnValue.replace("\"","");
-			        var replaceValue2 = replaceValue.replace("\"","");
-			        var audioSrc = 'data:audio/wav;base64,' + replaceValue2;
-			        var audio = new Audio();
-			        audio.src = audioSrc;
-			        audio.load();
-			        audio.play();
-			    
-			}
-		</script>
 		<table style="width: 100%">
-			<input type="hidden" alt="" id="returnData" name="returnData" value=<%= returnData %>>
-
 
 			<input type='button' onclick="loadFile()">
 			<tbody><tr>
@@ -78,8 +64,7 @@
 				
 				<tr>
 					<td colspan=2 height="500px" width="50%"> 
-						<!-- <iframe width="100%" height="100%" src="reveal.html"></iframe>  
-					 아직 덜 합ㄹㅊ진듯 -->
+						<iframe width="100%" height="100%" src="reveal.html"></iframe>
 					</td>
 				</tr>
 
@@ -112,7 +97,7 @@
 	</div>
 	
 	<div data-position="fixed" data-role="footer">
-		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain"></h4> </div>
+		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
 	</div>
 	
 </body>

@@ -19,7 +19,7 @@
 		    <li data-role="list-divider">Insight Presentation</li>
 		    <li><a href="/" data-panel="main">Home</a></li>
 		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Llist">PPT목록</a></strong></li>
+		    <li><a href="/Plist">PPT목록</a></strong></li>
 		    <li><a href="#my" data-panel="main">마이페이지</a></li>
 		  </ul>
 		</div>
@@ -27,42 +27,22 @@
 
 
 		<div data-role="header">
-			<a data-icon="back" data-role="button" href="/Lmenu/<%=cPage%>">back</a>
-			<h1 align="center">현재 발표 듣기</h1>
+			<a data-icon="back" data-role="button" href="/Pmenu/<%=cPage%>">back</a>
+			<h1 align="center">Check Comment</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
 		<div data-role="content">
 			<table style="width: 100%">
-				<tbody><tr>
-					<td width="100%" colspan="2">슬라이드보이는창</td>
-
-
-				</tr>
-				<tr>
-					<td width="100%" colspan="2">
-						<center>
-							<div data-type="horizontal" data-role="controlgroup">
-								<a data-inline="true" data-icon="back" data-role="button" id="back" href="#page3">이전</a> <a data-inline="true" data-icon="forward" data-role="button" id="next" href="#">다음</a>
-							</div>
-
-						</center>
-					</td>
-				</tr>
+				<tbody>
 				
 				<tr>
 					<td width="100%" colspan="2">
-								<div data-role="fieldcontail">
-								<form action="/Listenpt" method="post" id="commentForm" onSubmit = "alert('commented')" data-ajax="false">
-									<label for="comment"> 한줄 코멘트 남기기 : </label><input type="text" name="comment" id="comment">									
-									<input type="submit" value="확인" onclick = "document.forms['commentForm'].submit();">	
-								</form>
-								</div>
 								<div>
-								
+									<ul data-role="listview" id="commentlist">
 										<% Article.forEach( function(Article){ %>
-											<div> comment :  <%=Article.message%>  user : <%=Article.writer%> </div>
+											<li> <a>comment :  <%=Article.message%>  user : <%=Article.writer%></a></li>
 										<% }); %>
-
+									</ul>
 								</div>
 					</td>
 				</tr>
@@ -100,7 +80,6 @@
 			form.submit();
 			alert("a");
 		}
-
 	</script>
 
 </body>

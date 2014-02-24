@@ -1,90 +1,4 @@
-<html class="ui-mobile"><head>
-<meta charset="UTF-8">
-<meta content="width=device-width,maximum-scale=1, user-scalable=no" name="viewport">
-<title>Insight Presentation</title>
-<link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
 
-
-<script type="text/javascript">
-var num = 0;
-function addItem() {
-
-	var list1 = $("#list1").append(
-		"&lt;li&gt;&lt;a href='#Plist' id='list'"+(++num)+"&gt;Item" + (num) + "&lt;/a&gt;&lt;/li&gt;");
-	list1.listview("refresh");
-}
-</script>
-
-<script type="text/javascript">
-var num = 1;
-function addItem1() {
-
-	var list2 = $("#list2").append(
-		"&lt;li&gt;&lt;a href='#Llist'&gt;Item" + (++num) + "&lt;/a&gt;&lt;/li&gt;");
-	list2.listview("refresh");
-}
-</script>
-
-
-<style type="text/css">
-body{
-	font-family:"맑은 고딕";
-}
-
-#a {
-	height: 100%;
-
-}
-
-#b {
-	height: 100%;
-
-}
-
-#c td{
-	width:50%;
-}
-
-#d td{
-	height: 10%;
-}
-
-
-table {
-	width: 100%;
-	height:40%;
-}
-
-
-#wrap1 {
-	height: 40%;
-
-}
-
-#a1 {	
-	text-align: center;
-}
-
-#b1 {
-
-	text-align: center;
-}
-
-#c1 {
-	height: 100%;
-}
-
-#c1 td{
-	width: 50%;
-	height :100%;
-} 
-
-</style>
-
-</head>
-<body>
 <div data-role="page" id="ex_control" data-theme="b">
 
 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
@@ -122,7 +36,7 @@ table {
 									<div>
 										<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
 											<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example1.Timer.toggle();">
-											<img id="stop" src="stopstop48.png">
+											<img id="stop" src="stopstop48.png" onclick="saveAudio();">
 											<img id="init_" src="stop.png" onclick="Example1.resetStopwatch();">&nbsp;&nbsp; 
 											<input type="hidden" id = "R_NAME" name="R_NAME"/>
 											<input type="hidden" id = "R_blob" name="R_blob"/>
@@ -182,5 +96,3 @@ table {
 			<div data-role="footer" data-position="fixed">
 				<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
 			</div>
-	</body>
-</html>

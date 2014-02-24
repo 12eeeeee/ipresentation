@@ -110,9 +110,9 @@ Recorder.forceDownload = function(blob, filename){
 ////서버에 저장 
 var reader = new FileReader();
 reader.onload = function(event){
-  
   STORE.R_NAME = filename;
   STORE.R_blob = event.target.result;
+  STORE.R_blob = STORE.R_blob.replace(/^data:audio\/wav;base64,/,"");
 };
 
 reader.readAsDataURL(blob);
