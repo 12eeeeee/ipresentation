@@ -39,12 +39,12 @@ module.exports = function (app) {
 
   app.get('/login', function(req, res) {
     res.render('login', { user : req.user });
-       /* if(tyoeif(user) == 'undefined')
-            res.redirect('/login');
-        else
-          res.redirect('/index');*/
-        
-      });
+/* if(tyoeif(user) == 'undefined')
+res.redirect('/login');
+else
+  res.redirect('/index');*/
+
+});
 
   app.post('/login', passport.authenticate('local'), function(req, res) {
     res.redirect('/');
@@ -60,97 +60,103 @@ module.exports = function (app) {
   app.post('/upload', function(req, res){
 
     console.log('POST');
-       // var url = req.body.R_URL;
-       //views/js/recorder.js와 연결됨
-       var name = req.body.R_NAME;
-       var blob = req.body.R_blob;
-       name = name+'_'+req.cookies.cPage+'.wav';
-       console.log(name);
-       // console.log(blob);
+// var url = req.body.R_URL;
+//views/js/recorder.js와 연결됨
+var name = req.body.R_NAME;
+var blob = req.body.R_blob;
+name = name+'_'+req.cookies.cPage+'.wav';
+console.log(name);
+console.log(blob);
 
-       base64Data = blob.replace(/^data:audio\/wav;base64,/,""),
-       binaryData = new Buffer(base64Data, 'base64').toString('binary');
-       var fileRoute = "\\files\\"+ name;
-       var filePath = __dirname + fileRoute;
+base64Data = blob.replace(/^data:audio\/wav;base64,/,""),
+binaryData = new Buffer(base64Data, 'base64').toString('binary');
+var fileRoute =  "\\files\\"+ name;
+var filePath = __dirname + fileRoute;
 
-       fs.writeFile(filePath, binaryData, "binary", function(error){
-        if(error){
-          throw error;
-        }else{
-          console.log('FILE is made');
+console.log('filePath => ' + filePath);
+
+fs.writeFile(filePath, binaryData, "binary", function(error){
+  if(error){
+    throw error;
+  }else{
+    console.log('FILE is made');
+    res.redirect('/presentPPT');
+  }
+});
+// 아티클에 파일이름 넣어보자
+console.log('fileRoute => ' + fileRoute);
+Article.update({'ptname':  req.cookies.cPage}, {'recordReal':filePath}, function(err, doc){
+  if(err)
+console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
+else
+  console.log('파일 들어감');
+});
 
 
-
-          res.redirect('/presentPPT');
-        }
-      });
-               // 아티클에 파일이름 넣어보자
-               console.log(fileRoute);
-               Article.update({'ptname':  req.cookies.cPage}, {'recordReal':fileRoute}, function(err, doc){
-                if(err)
-                console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
-              else
-                console.log('파일 들어감');
-            });
-
-               
-               Article.findOne({ ptname : req.cookies.cPage }, function(err, doc, count){
-                console.log('slide : ' +doc.recordReal);
-                if(err)
-                console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
-            });
-               
-             });
-app.get('/upload', function(req, res){
- console.log('upload=>get');
- res.render('index', {
-  user : req.user,
-  Article : req.Article,
-  cPage : req.cookies.cPage
+Article.findOne({ ptname : req.cookies.cPage }, function(err, doc, count){
+  console.log('slide : ' +doc.recordReal);
+  if(err)
+console.log(err); //현재 페이지 제대로 들어 왔는지 확인 
+});
 
 });
+app.get('/upload', function(req, res){
+  console.log('upload=>get');
+  res.render('index', {
+    user : req.user,
+    Article : req.Article,
+    cPage : req.cookies.cPage
+
+  });
 });
 
 /*app.get('/presentPPT', function(req, res){
- console.log('presentPPT=>get');
- res.render('presentPPT', {
-  user : req.user,
-  Article : req.Article,
-  cPage : req.cookies.cPage
+console.log('presentPPT=>get');
+res.render('presentPPT', {
+user : req.user,
+Article : req.Article,
+cPage : req.cookies.cPage
 });
 });*/
 
 app.get('/practicePPT', function(req, res){
- console.log('practicePPT=>get');
- res.render('practicePPT', {
-  user : req.user,
-  Article : req.Article,
-  cPage : req.cookies.cPage
+  console.log('practicePPT=>get');
+  res.render('practicePPT', {
+    user : req.user,
+    Article : req.Article,
+    cPage : req.cookies.cPage
+  });
 });
-});
+
 app.get('/L_replay_control', function(req, res){
   console.log('replay=>get');
-  var Article = req.Article;
-  
-  Article.findOne({'ptname':req.cookies.cPage}, function(err, doc, count){ 
-    console.log('article 입니다'+Article);
-    console.log('article.recordreal 입니다'+Article.recordReal);
-    fs.readFile(''+Article.recordReal, function (err,data) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(data);
-    });
-    res.render('L_replay_control',
-    {
-      user : req.user,
-      Article : doc
-    });
-   
-    if(err)
-      console.log(err);   
-  });
-  
+  var returnData;
+  var cPage = req.cookies.cPage;
 
-})
-};
+
+  Article.findOne({'ptname':cPage}, function(err, doc, count){ 
+    console.log('article 입니다'+doc);
+    console.log('article.recordreal 입니다'+doc.recordReal);
+    process.chdir(__dirname);
+
+    var StringData;
+
+    fs.readFile(''+doc.recordReal, function (err,data) {
+      if (err) {
+        return console.log('Error => ' + err);
+      }
+
+      var base64File = new Buffer(data, 'binary').toString('base64');
+
+      StringData = JSON.stringify(base64File);
+      returnData = StringData;
+      res.render('L_replay_control',
+      {
+        user : req.user,
+        Article : doc,
+        returnData : returnData
+      });
+    });
+  });
+});
+}

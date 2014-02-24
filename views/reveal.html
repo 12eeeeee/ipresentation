@@ -27,11 +27,11 @@
 
 			function SetupPT()
 			{
-				
+				alert('호출!');
 				var get = parent.document.getElementById('getSList').value;
 
 				SList = JSON.parse(get);
-				
+				alert(typeof SList);
 				
 				var PtView = document.getElementById('VIEW');
 
@@ -39,6 +39,7 @@
 			 
 				 for(i in SList)
 				 {
+				 	alert('SList' + i + 'is ' + SList[i]);
       			   var id = document.createElement('section');
       			   /*var img = document.createElement('img');
       			   img.src = myData[i];*/

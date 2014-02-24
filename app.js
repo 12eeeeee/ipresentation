@@ -100,6 +100,7 @@ app.configure('production', function(){
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.use (express.static(__dirname + '/views'));
+app.use (express.static(__dirname + '/views/js'));
 app.engine('.html', ejs.__express);
 //app.engine('html', cons.swig);
 app.set('view engine', 'html');
