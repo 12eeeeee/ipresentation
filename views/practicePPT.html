@@ -1,10 +1,18 @@
-<html class="ui-mobile"><head>
+<html class="ui-mobile">
+<head>
 <meta charset="UTF-8">
 <meta content="width=device-width,maximum-scale=1, user-scalable=no" name="viewport">
 <title>Insight Presentation</title>
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+<script src="js/AudioContextMonkeyPatch.js"></script>
+<script src="js/audiodisplay.js"></script>
+<script src="js/recorder.js"></script>
+<script src="js/main.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/recorderWorker.js"></script>
+<script src="js/jquery.timer.js"></script>
 
 
 <script type="text/javascript">
@@ -85,7 +93,7 @@ table {
 
 </head>
 <body>
-<div data-role="page" id="ex_control" data-theme="b">
+<div data-role="page" id="ex_control" data-theme="b" data-url="practicePPT">
 
 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
 		<ul data-role="listview" data-inset="true" data-theme="b">
@@ -106,81 +114,89 @@ table {
 
 	</div>
 
-	<div data-role="content">            
+<div data-role="content">
+<input type ="hidden" id="getSList" value=<%=SLIDE%>>
+	<script>
+	// document.write("<script type='text/javascript' src='/js/recorder.js'><"+"/script>"); 
+	function printInfo(){
+	//var STORE = new STORE();
+	saveAudio();
+	document.getElementById("R_NAME").value = STORE.R_NAME;
+	document.getElementById("R_blob").value = STORE.R_blob;
+	}
+	</script>
 
-		<table style="width: 100%" style="height:100%">
-			<tr>
-				<td>
+
+	<table style="width: 100%" style="height:100%">
+
+		<%= cPage %>
+
+		<tr>
+			<td colspan=2 align="center">
+				<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
 					<div>
-						<canvas id="analyser" height="50" width="100" style="border:10px doted red;display:none"></canvas>
-						<canvas id="wavedisplay" width="50" height="100" style="display:none"></canvas>
+						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example2.Timer.toggle();">
+						<img id="stop" src="stopstop48.png" onclick="saveAudio();">
+						<img id="init_" src="stop.png" onclick="Example2.resetStopwatch();">
+						<input type="hidden" id = "R_NAME" name="R_NAME"/>
+						<input type="hidden" id = "R_blob" name="R_blob"/>
+						<input type="image" src="save.png" alt="Submit Form" />
+						                
+						<br/><br/><span id="stopwatch2">00:00:00</span>   	
+					</div> 
+				</form>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan=2 width="100%"></td>
+		</tr>
+
+		<tr>
+			<td colspan=2 height="500px" width="50%"> 
+				<iframe width="100%" height="100%" src="reveal.html"></iframe>
+			</td>
+		</tr>
+		<tr>
+			<td colspan = 2 width="100%">
+				<script src="js/modernizr-2.6.2.min.js"></script>
+				<div class="controls-contain" >
+					<center>
+						<!-- 			<div data-role="controlgroup" data-type="horizontal"> -->
+						<a href="#" data-key="37" class ="btn" data-role="button" data-icon="back"
+						data-inline="true">이전</a> 
+						<a href="#" data-key="39" id="next" class ="btn"
+						data-role="button" data-icon="forward" data-inline="true">다음</a>
+					</center>		
+				</div>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+				<script src="/socket.io/socket.io.js"></script>
+				<script src="js/controldeck.js"></script>
+
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 width="100%">
+				<div data role="content">
+					<form id="rlist" method="post" action="#">
+						<div data-role="fieldcontail">
+							<label for="ptlist"></label> <select id="ptlist" name="ptlist"
+							data-native-menu="true">
+							<option value="list1">PPT1</option>
+							<option value="list2">PPT2</option>
+							<option value="list3">PPT3</option>
+						</select>
 					</div>
-					<div>
-						<table width="100%">
-							<tr>
-								<td colspan=2 align="center">
-									<div>
-										<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
-											<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example1.Timer.toggle();">
-											<img id="stop" src="stopstop48.png">
-											<img id="init_" src="stop.png" onclick="Example1.resetStopwatch();">&nbsp;&nbsp; 
-											<input type="hidden" id = "R_NAME" name="R_NAME"/>
-											<input type="hidden" id = "R_blob" name="R_blob"/>
-											<input type="image" src="save.png" alt="Submit Form" onclick="saveAudio();"/>
-											&nbsp;&nbsp; &nbsp;&nbsp;                  
-											<br/><br/><span id="stopwatch2">00:00:00</span> &nbsp;&nbsp;  
-										</div>
-									</form>
-								</tr>
-
-							</table>
-						</div>
-					</td>
-				</tr>
-				<tr>
-
-					<td colspan=2 height="500px" width="50%"> 
-						<iframe width="100%" height="100%" src="reveal.html"></iframe>
-					</td>
-
-				</tr>
-				<tr>
-					<td width="100%">
-						<center>
-							<div data-role="controlgroup" data-type="horizontal">
-								<a href="#page3" id="back" data-role="button" data-icon="back"
-								data-inline="true">이전</a> <a href="#" id="next"
-								data-role="button" data-icon="forward" data-inline="true">다음</a>
-							</div>
-
-						</center>
-					</td>
-				</tr>
-				<tr>
-					<td width="100%">
-						<div data-role="content">
-							<form id="rlist" method="post" action="#">
-								<div data-role="fieldcontail">
-
-									<label for="ptlist"></label> <select id="ptlist" name="ptlist"
-									data-native-menu="true">
-
-									<option value="list1">PPT1</option>
-
-									<option value="list2">PPT2</option>
-
-									<option value="list3">PPT3</option>
-
-								</select>
-							</div>
-						</td>
-					</tr>
-				</table>
+				</form>
 			</div>
+		</td>
+	</tr>
+</table>
+</div>
 
 
 			<div data-role="footer" data-position="fixed">
-				<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+				<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain"></h4> </div>
 			</div>
 	</body>
 </html>

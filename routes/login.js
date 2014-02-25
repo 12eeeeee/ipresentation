@@ -6,7 +6,7 @@ fs = require('fs');
 module.exports = function (app) {
 
   app.get('/', function (req, res) {
-    res.render('index', { user : req.user});
+    res.render('index', { user: req.user});
     if(!req.user ){
       console.log('main User Info 1', req.user);
     }else{
@@ -121,11 +121,25 @@ cPage : req.cookies.cPage
 
 app.get('/practicePPT', function(req, res){
   console.log('practicePPT=>get');
-  res.render('practicePPT', {
-    user : req.user,
-    Article : req.Article,
-    cPage : req.cookies.cPage
-  });
+  var cPage = req.cookies.cPage;
+  var practicePPT_TEMP;
+     Article.findOne({ ptname : cPage }, function(err, doc, count){
+         //   Article.remove(Article.slide);
+       //  console.log('Target Status : '+ doc.slide);
+         if(err) console.log(err);
+        practicePPT_TEMP = doc.slide;
+        console.log('This practice PPT SLIDE ->'+practicePPT_TEMP);
+       // console.log('presentPPT_TEMP :: ' + presentPPT_TEMP);
+       // console.log('presentPPT_TEMP type' + typeof presentPPT_TEMP);
+        
+
+        res.render('practicePPT', {
+          user : req.user,
+          Article : req.Article,
+          cPage : cPage,
+          SLIDE : practicePPT_TEMP
+        });
+      });
 });
 
 app.get('/L_replay_control', function(req, res){
@@ -159,4 +173,24 @@ app.get('/L_replay_control', function(req, res){
     });
   });
 });
+
+
+    app.get('/fbauthed', passport.authenticate('facebook',{
+    successRedirect: '/',
+    failureRedirect: '/',
+  }));
+  //
+  // redirect 실패/성공의 주소를 기입한다.
+  //
+  app.get('/fbauthed/callback', passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/',
+  }));
+
+/*app.get('/loggedin', ensureLoggedIn('/'), routes.loggedin); // see below
+app.get('/fbauthed', passport.authenticate('facebook',{ 
+  failureRedirect: '/',
+  successRedirect: '/loggedin'
+}));*/
+
 }

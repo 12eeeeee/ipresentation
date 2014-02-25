@@ -1,4 +1,4 @@
-<body>
+
   <head>
     <style type="text/css">
    body{
@@ -8,10 +8,9 @@
    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js">
    </script>
   </head>
+
+  <body>
    <div data-role="page" id="canvas" data-theme="b">
-   
-
-
     <div data-role="panel" data-position="right" id="menu" class="bmenu">
       <ul data-role="listview" data-inset="true" data-theme="b">
         <li data-role="list-divider">Insight Presentation</li>
@@ -37,7 +36,7 @@
     <tr width=100%>
       <td align="center">
         <div id="viz">
-            <canvas id="canvas22" class="lower-canvas"width="550" height="300" ></canvas>
+            <canvas id="canvas22" class="lower-canvas"width="550" height="300" style="border:1 solid #5D5D5D"></canvas>
         </div>
       </td>
     </tr>   
@@ -49,8 +48,10 @@
           <input type="button" onclick="g_circle()" value="circle"  data-inline="true">
           <input type="button" onclick="g_rect()" value="rectangular" data-inline="true">
           <button id="clear-canvas" data-inline="true" >delete</button>
-          <input type="button" onclick="load_()" value="call" data-inline="true">
+          <input type="button" onclick="LoadPT()" value="call" data-inline="true">
           </div>
+
+
           <div data-role="controlgroup" data-type="horizontal">
           <button onclick="addText()" data-inline="true">Add text</button>
           <textarea style="margin:0px;" id="textinput" rows="3" ></textarea>
@@ -59,12 +60,12 @@
 
           <form action = '/canvas' method="post" onSubmit = 'alert('저장 되었습니다')';>
           <div data-role="controlgroup" data-type="horizontal">
-              <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="white">
-              <input type="button" id="colorBtn" onclick ="colorChange()" data-inline="true" value="colorChange">
+              <input type="color" bind-value-to="fill" id="picker" data-inline="true" value ="#FFFFFF">
+              
               <input type="button" id="capture" onclick="capture1()" data-inline="true" value="Capture">
               <input type="button" value=" clear All " onclick="del()" data-inline="true">
-              <input type="hidden" id="JLIST" name ="JLIST">
-              <input type="hidden" id="SLIST" name ="SLIST">
+              <input type="hidden" id="JLIST" name ="JLIST" value=<%=JSON_slide%>>
+              <input type="hidden" id="SLIST" name ="SLIST" value=<%=SLIDE%>>
               <input type="submit" value="save" onclick="save1()" data-inline="true" >
            </div>
          </form>
@@ -74,7 +75,7 @@
         <tr width="100%">
         <td width="100%" >
             <div id="board"></div>
-              <div id ="board2"></div>
+            <div id ="board2"></div>
         </td>
          </tr>
     </table>
@@ -84,17 +85,56 @@
         var currentSlide=0;
         var json;
         var jList = [];
-       var sList = [];
-       var firstCaptureData;
+        var sList = [];
+        var firstCaptureData;
         var canvas = this.__canvas = new fabric.Canvas('canvas22', {isDrawingMode: false}); 
-            
-        function colorChange()
-        {
-          var color = $('#picker').val(); 
-          var obj = canvas.getActiveObject();
-          obj.set('fill', color);
-          canvas.renderAll();
+        var colorbtn = document.getElementById('picker');
+
+
+        colorbtn.addEventListener('change', function(){
+            var color = $('#picker').val(); 
+            var obj = canvas.getActiveObject();
+            var objGroup = canvas.getActiveGroup();
+
+            if(objGroup){
+              var objectsInGroup = objGroup.getObjects();
+
+                  objectsInGroup.forEach(function(obj) {
+                   obj.set('fill', color);
+                 });
+              
+            }else{            
+            obj.set('fill', color);
+            }
+
+            canvas.renderAll();
+        }, false);    
+
+
+        function LoadPT(){
+          var SLIST1 =  JSON.parse(document.getElementById('SLIST').value);
+          JLIST1 = document.getElementById('JLIST').value;
+           alert('이전에 작업 중이던 목록을 불러 옵니다.');
+           alert(document.getElementById('JLIST').value);
+           jList = JLIST1;
+
+            if(SLIST1.length>0)
+             {
+                for(i in SLIST1)
+                {
+                 
+                  sList[i] = SLIST1[i];
+                  var PtView = document.getElementById('board2');
+                  var id = document.createElement('span');
+                  id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+i+' src ="'+ sList[i] +'" class = "sList" onclick="load1('+ i+')">';
+                  PtView.appendChild(id);
+                }
+                          alert('sList'+sList.length+'jList : ' +jList.length);
+                currentSlide = sList.length;
+             }
         }
+
+
         function g_circle()
         {   var color = $('#picker').val(); 
             var circle = new fabric.Circle({ radius: 30, fill: color, top: 100, left: 100 });
@@ -110,14 +150,14 @@
 
         function addText()
         {
-          var color = 'white';
+            var color = 'white';
               color = $('#picker').val();
-          var textInput;
-          var userInput = document.getElementById('textinput');
-          if(userInput == undefined) 
-            textInput = "NEW TEXT";
-          else 
+
+          var textInput = "NEW TEXT";
+          var userInput = document.getElementById('textinput').value;
+          if(userInput != undefined) 
             textInput = userInput;
+
 
            var object = new fabric.IText(textInput, { 
             fontFamily: "myFirstFont", 
@@ -130,7 +170,7 @@
           });
           // object.setColor(color);
           canvas.add(object);
-          canvas.render(this);
+          canvas.renderAll();
 
           $("#textinput").keyup(function(event) {
           //document.getElementById('textinput').addEventListener('keyup', function (e) {
@@ -141,28 +181,13 @@
             obj.setText(event.target.value);
             
             canvas.renderAll();
-
+            userInput = '';
           });
+
+          document.getElementById('textinput').value = '';
         }
 
     
-/*        function bgColor_()
-        {
-          var color = $('#picker').val();  
-          canvas.backgroundColor = rgba(127,0,255,1);
-          canvas.renderAll();
-        }
-*/
-/*        function save_()
-        {
-           json = window._json = canvas.toJSON();
-        }
-        */
-/*        function load_()
-        {
-           canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
-        }
-        */
        
         $(document).ready(function() {
              var $ = function(id){return document.getElementById(id)};            
@@ -191,21 +216,18 @@
 
 
       function capture1(){
+         canvas.deactivateAll().renderAll();      //작업 중 선택된 캔버스 선택  모두 해제.
          var src     = canvas.toDataURL("image/png"); 
-           //    alert(src);
 
                var img     = document.createElement('img');
                img.src     = src; 
         
-               //document.getElementById('board').appendChild(img);
+
                sList.push(img.src); 
 
-
-               alert('저장 src확인'+sList[sList.length-1]);
-               
                var PtView = document.getElementById('board2');
-               var id = document.createElement('div');
-               id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+(sList.length-1)  +' src ="'+ img.src +'" class = "sList" onclick="load('+ (sList.length-1)+')">';
+               var id = document.createElement('span');
+               id.innerHTML = '<img style="width:150px;height:100px;border:solid;cursor:pointer" id='+(sList.length-1)  +' src ="'+ img.src +'" class = "sList" onclick="load1('+ (sList.length-1)+')">';
 
                PtView.appendChild(id);
 
@@ -217,10 +239,13 @@
              currentSlide = (jList.length-1);
       }
 
-    function load(i){
+    function load1(i){
+      alert('load i = '+i);
+      canvas.deactivateAll().renderAll();
+      //이전 작업 중 선택된 캔버스 선택  모두 해제.
       var src     = canvas.toDataURL("image/png");
       //캔버스 로드 후 이전 슬라이드 미리보기 변경을 위한 소스
-     
+
       jList[currentSlide] = JSON.stringify(canvas);
       //currentSlide => 마지막으로 캡쳐 된 슬라이드(현재 작업중이던 슬라이드)
       //를 json으로 변환 
@@ -230,28 +255,32 @@
       canvas.clear();       //로드 된 이미지를 불러오기 위해 캔버스 초기화 한다. 
       
       canvas.loadFromJSON(jList[i], canvas.renderAll.bind(canvas));
-      alert('load!');
       //불러온 i번째 슬라이드를 캔버스에 뿌려준다.
       currentSlide = i;  
       //작업중인 슬라이드( currentSlide)에 i(로드 된 슬라이드)를 대입한다.
       }
 
       function save1(){
-            alert('saved!');
-            
+
+/*        if(currentSlide != (sList.length-1)){
+            var src     = canvas.toDataURL("image/png");
+            var img     = document.createElement('img');
+            img.src     = src; 
+            sList.push(img.src); 
+            alert('save!');
+        }else alert('save!!');*/
             document.getElementById("JLIST").value = jList;
             document.getElementById("SLIST").value = JSON.stringify(sList);
-             alert(document.getElementById("SLIST").value); //잘됬나확인 
+
+           alert(jList);
       }
-
-
 
         </script>        
       
     
      </div>
         <div data-role="footer" data-position="fixed">
-    <h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+    <h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation </h4></div>
     </div>
     
    

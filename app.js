@@ -13,6 +13,7 @@
     , path = require('path')
     , mongoose = require('mongoose')
     , passport = require('passport') //로그인 모듈 
+    , FacbookStrategy = require('passport-facebook').Strategy
     , LocalStrategy = require('passport-local').Strategy
     , ejs = require('ejs'); // HTML <% %>
 
@@ -28,31 +29,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
-
-mongoose.createConnection('mongodb://insightpresentation:tkfkdgks0@ds027709.mongolab.com:27709/ipt');
-require('./routes/login.js')(app);
-require('./routes/article.js')(app);
-
-app.use(express.methodOverride());
-var User = require('./model/user');
-
 var config = require('./config');
 
-/*var passport = require('passport'),
-    FacbookStrategy = require('passport-facebook').Strategy;
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
 
-passport.serializeUser(function(user, done){
-    done(null, user.id)
-});
-passport.deserializeUser(function(id,done){
-    User.findOne(id, function(err, user){
-        done(err, user);
-    })
-});
-*/
-/*// setting for passport
+// setting for passport
 passport.use(new FacbookStrategy({
         clientID: config.development.fb.appId,
         clientSecret: config.development.fb.appSecret,
@@ -66,10 +52,10 @@ passport.use(new FacbookStrategy({
                     console.log('Existing User: ' + oldUser.name + 'found and logged in!');
                     done(null, oldUser);
                 } else {
-                    var newUser = new User();
-                    newUser.fbId = profile.id;
-                    newUser.name = profile.displayName;
-                    newUser.email = profile.emails[0].value;
+                    var newAccount = new User();
+                    newAccount.phonenum = profile.id;
+                    newAccount.username = profile.displayName;
+                    newAccount.email = profile.emails[0].value;
 
                     newUser.save(function (err) {
                         if (err) throw err;
@@ -80,11 +66,24 @@ passport.use(new FacbookStrategy({
                 }
             });
         });
+        console.log("Auth done");
+        return done(null, profile);
     })
 );
-+
 
+mongoose.createConnection('mongodb://insightpresentation:tkfkdgks0@ds027709.mongolab.com:27709/ipt');
+require('./routes/login.js')(app);
+require('./routes/article.js')(app);
+
+app.use(express.methodOverride());
+var User = require('./model/user');
+
+
+
+/*var passport = require('passport'),
+    FacbookStrategy = require('passport-facebook').Strategy;
 */
+
 
 
 
@@ -112,8 +111,10 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 
 app.use(express.cookieParser());
-app.use(express.session({secret: 'asdfasdfasdf'}));
-
+app.use(express.session({
+    key    : 'sid',
+    secret: 'asdfasdfasdf'
+}));
 
 
 //app.use(passport.session());

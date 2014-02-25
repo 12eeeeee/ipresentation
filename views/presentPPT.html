@@ -66,7 +66,7 @@
 </head>
 <body>
 
-<div data-role="page" id="real_control" data-theme="b">
+<div data-role="page" id="real_control" data-theme="b" data-url="presentPPT">
 
 <div data-role="panel" data-position="right" id="menu" class="bmenu">
 	<ul data-role="listview" data-inset="true" data-theme="b">
@@ -85,7 +85,7 @@
 
 
 <div data-role="content">
-
+<input type ="hidden" id="getSList" value=<%=SLIDE%>>
 	<script>
 	// document.write("<script type='text/javascript' src='/js/recorder.js'><"+"/script>"); 
 	function printInfo(){
@@ -93,11 +93,6 @@
 	saveAudio();
 	document.getElementById("R_NAME").value = STORE.R_NAME;
 	document.getElementById("R_blob").value = STORE.R_blob;
-
-	alert('store->'+STORE);
-	alert('store R_blob->'+STORE.R_blob);
-	alert('store R_NAME->'+STORE.R_NAME);
-
 	}
 	</script>
 
@@ -129,7 +124,7 @@
 
 		<tr>
 			<td colspan=2 height="500px" width="50%"> 
-				<iframe width="100%" height="100%" src="reveal.html"></iframe>
+				<iframe width="100%" height="100%" src="/reveal" style="zoom:100%"></iframe>
 			</td>
 		</tr>
 		<tr>
@@ -152,7 +147,9 @@
 		</tr>
 		<tr>
 			<td colspan=2 width="100%">
+				<a href="/reveal" data-role="button" target="_blank" data-transition="flip"> Full Screen </a>
 				<div data role="content">
+		
 					<form id="rlist" method="post" action="#">
 						<div data-role="fieldcontail">
 							<label for="ptlist"></label> <select id="ptlist" name="ptlist"
@@ -169,7 +166,7 @@
 </table>
 </div>
 <div data-role="footer" data-position="fixed">
-	<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain"></h4> 
+	<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation</h4> 
 </div>
 </div>
 </body>

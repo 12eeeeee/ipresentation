@@ -9,6 +9,7 @@ var Article = new Schema({
     place	: { type: String, default: '' },
     username : {type : String, default: 'undefined'},
     slide : [],
+    JSON_slide:[],
     recordReal : {type : String, default:''},
     recordPractice : {"_id" :  { type: String }, "record" : {type:String}},
     writer : [{type:String, default:''}],

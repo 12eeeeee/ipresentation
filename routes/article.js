@@ -1,6 +1,6 @@
 
 var Article = require('../model/article');
-
+var fs = require('fs');
 module.exports = function (app) {
 
   app.get('/createArticle', function(req, res) {
@@ -116,7 +116,7 @@ module.exports = function (app) {
         if(err) return handleError(eror);
         console.log('remove!');
       })*/
-  Article.update({ptname:cPage}, {'slide' : SLIST} , {upsert:true,multi:false} , function(err,data){
+  Article.update({ptname:cPage}, {'slide' : SLIST, 'JSON_slide':JLIST} , {upsert:true,multi:false} , function(err,data){
     if(err)
       console.log(err);
   });
@@ -145,8 +145,6 @@ module.exports = function (app) {
 
        // console.log('presentPPT_TEMP :: ' + presentPPT_TEMP);
        // console.log('presentPPT_TEMP type' + typeof presentPPT_TEMP);
-        
-
         res.render('presentPPT', {
           user : req.user,
           Article : req.Article,
@@ -232,11 +230,44 @@ app.post('/Listenpt', function(req, res) {
 
  app.get('/canvas', function(req, res){
   var cPage = req.cookies.cPage;
-  res.render('canvas', {user : req.user , Article : req.Article, cPage : cPage});
-
+        Article.findOne({ptname:cPage}, function(err,doc,count){
+          if(err)
+            console.log(err);
+          console.log(doc.JSON_slide);
+          res.render('canvas',{
+            user : req.user , 
+            Article : req.Article, 
+            cPage : cPage,
+            SLIDE : doc.slide,
+            JSON_slide : doc.JSON_slide
+          });
+  });
 });
 
+  app.get('/reveal', function(req, res){
+    var cPage = req.cookies.cPage;
+    var presentPPT_TEMP;
+    Article.findOne({ ptname : cPage }, function(err, doc, count){
+         //   Article.remove(Article.slide);
+       //  console.log('Target Status : '+ doc.slide);
+         if(err)
+          console.log(err);
+        presentPPT_TEMP = doc.slide;
+
+       // console.log('presentPPT_TEMP :: ' + presentPPT_TEMP);
+       // console.log('presentPPT_TEMP type' + typeof presentPPT_TEMP);
+
+ /*      fs.readFile('reveal.html', function(req,res){
+        res.writeHead(200, {'Content-Type':'text/html'});
+        res.end(data);
+       });*/
+        res.render('reveal', {
+          user : req.user,
+          SLIDE : presentPPT_TEMP
+        });
+      });
    //res.render('Plist', {user : req.user, Article : Article});
+ });
  }
 
 
