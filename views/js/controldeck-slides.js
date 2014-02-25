@@ -1,3 +1,5 @@
+
+
 var messageHandler;
 if (typeof jQuery === 'undefined') jQuery = {};
 
@@ -16,6 +18,9 @@ function updateDeckJS(message) {
     e.which = parseInt(message,10);
     $(document).trigger(e);
 }
+
+
+
 function updateReveal(message) {
     console.log('updateReveal '+message);
     if      (message === '37')      Reveal.navigateLeft();

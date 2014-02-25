@@ -1,38 +1,33 @@
-<html class="ui-mobile"><head>
+<html class="ui-mobile">
+
+<head>
 <meta charset="UTF-8">
 <meta content="width=device-width,maximum-scale=1, user-scalable=no" name="viewport">
 <title>Insight Presentation</title>
+
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
- 
 
-<script type="text/javascript">
-  var num = 0;
-  function addItem() {
 
-    var list1 = $("#list1").append(
-        "&lt;li&gt;&lt;a href='#Plist' id='list'"+(++num)+"&gt;Item" + (num) + "&lt;/a&gt;&lt;/li&gt;");
-    list1.listview("refresh");
-  }
-</script>
-
-<script type="text/javascript">
-  var num = 1;
-  function addItem1() {
-
-    var list2 = $("#list2").append(
-        "&lt;li&gt;&lt;a href='#Llist'&gt;Item" + (++num) + "&lt;/a&gt;&lt;/li&gt;");
-    list2.listview("refresh");
-  }
-</script>
-
-  
-   <style type="text/css">
+<style type="text/css">
    body{
    			font-family:"맑은 고딕";
    }
-    
+
+  /*  일단 삭제하고 절대값으로 다시 ==========================
+  #aa {
+	position:absolute;
+	top:"50%";
+	left:"50%";
+	width:"50%";
+	height:"100%";
+	margin-left:"-500px";
+	margin-right:"-500px";
+	margin-top:"-100px";  
+	  
+  }
+  
 #a {
 	height: 100%;
 
@@ -54,22 +49,17 @@
 
 table {
 	width: 100%;
-	height:40%;
+	height:70%;
 }
 
-
-#wrap1 {
-	height: 40%;
-
-}
 
 #a1 {	
-	text-align: center;
+	
 }
 
 #b1 {
 	
-	text-align: center;
+
 }
 
 #c1 {
@@ -78,59 +68,118 @@ table {
 
 #c1 td{
 	width: 50%;
-	height :100%;
+	height :100px;
 } 
+
+==========*/
+
+.boxes {
+
+	width:100%; 
+	height:100%;
+
+	float:left;
+
+	margin:2px;
+	padding:5px 5px;
+	margin:10px 10px;
+
+}
+
+.display .boxes a{
+     width:100%;
+	 padding:0px 0px 0px 0px;
+  }
+  
+  .display.boxes {
+    width:42%;
+    float:left;
+    margin:20px;
+  }
+
+
+.display {
+	margin:10px;
+	padding:auto;
+	}
+
+
+#d2 {
+	top:10px;
+	width:250px;
+}
+
+#b1{
+	padding:0px 0px;
+	margin:5px 5px 5px 5px;
+
+}
+
+#b2{
+	padding:0px 0px;
+	margin:5px 5px 5px 5px;
+
+}
+
+#b3{
+	padding:0px 0px;
+	margin:5px 5px 5px 5px;
+	clear:left;
+
+}
+
+#b4{
+	padding:0px 0px;
+	margin:5px 5px 5px 5px;
+
+}
 
 </style>
 
 </head>
 <body class="ui-mobile-viewport ui-overlay-d">
 
-	
-	
+
+
 	<div data-theme="b" id="pmenu" data-role="page" data-url="pmenu">
-   
- 	 <div class="bmenu" id="menu" data-position="right" data-role="panel">
-			<ul data-theme="b" data-inset="true" data-role="listview">
+
+		<div data-role="panel" data-position="right" id="menu" class="bmenu">
+			<ul data-role="listview" data-inset="true" data-theme="b">
 				<li data-role="list-divider">Insight Presentation</li>
-				<li><a data-panel="index.html" href="#page">Home</a></li>
-				<li><a href="index.html">로그아웃</a></li>
-				<li><a href="Plist.html">PPT목록</a></li>
-				<li><a data-panel="main" href="#my">마이페이지</a></li>
+				<li><a href="/" data-panel="main">Home</a></li>
+				<li><a href="/logout">로그아웃</a></strong></li>
+				<li><a href="/Plist">PPT목록</a></strong></li>
+				<li><a href="#my" data-panel="main">마이페이지</a></li>
 			</ul>
 		</div>
 
 
 
-   <div data-role="header">
+		<div data-role="header">
 
-			<a data-rel="external" data-icon="back" data-role="button" href="#">back</a>
+			<a data-icon="back" data-role="button" href="/Plist">back</a>
 			<h1 align="center">Presenter&nbsp;Mode</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
-		<h2> <center> Title : <%=cPage%>  </center></h2>
-		<div id="wrap" data-role="content">
-     <!--   <div style="margin-top:20px;"> -->
-
-			<table>
-				<tbody><tr id="c1"> <!-- 02.19 #canvas -> /canvas -->
-					<td><a id="a1" data-transition="flip" data-role="button" href="/canvas"><br/><br/>PPT<br>Making<br><br/>
-					</a></td>
-					<td><a id="b1" data-transition="flip" data-role="button" href="/practicePPT"><br/><br/>Exercise<br>PPT<br/><br/>
-					</a></td>
-				</tr>
-				<tr id="c1">
-					<td><a id="a1" data-transition="flip" data-role="button" href="/presentPPT"><br/><br/>Present<br>PPT<br/><br/>
-					</a></td>
-					<td><a id="b1" data-transition="flip" data-role="button" href="#check_comment"><br/><br/>Check<br>Comment<br/><br/>
-					</a></td>
-				</tr>
-			</tbody></table>
-		</div>
-		</div> 
-        <div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-       	</div>
-			</body>
-				</html>    
+		<h3> <center> Selected File name : <%=cPage%>  </center></h3>
+		
+		<div class="display" data-role="content" id="d2" style="width:100%">
+			  <div style="margin-top:20px;">  
+      			<center>
+              <div id="b1" class="boxes"> <a data-transition="flip" data-role="button" href="/canvas" "><br/><br/>PPT<br>Making<br><br/><br/>
+					</a></div>
+             <div id="b2" class="boxes"><a data-transition="flip" data-role="button" href="/practicePPT" ><br/><br/>Exercise<br>PPT<br/><br/><br/>
+					</a></div>
+              <div id="b3" class="boxes"><a data-transition="flip" data-role="button" href="/presentPPT" ><br/><br/>Present<br>PPT<br/><br/><br/>
+					</a></div>
+              <div id="b4" class="boxes"><a data-transition="flip" data-role="button" href="#check_comment" ><br/><br/>Check<br>Comment<br/><br/><br/>
+					</a></div>
+                 </center>
+            </div>
+       </div>           
+	<div data-position="fixed" data-role="footer">
+		<h4 class="ui-title" role="heading" aria-level="1">&copy;Pickle<img id="brain"></h4> </div>
+	</div>
+</body>
+</html>    
 

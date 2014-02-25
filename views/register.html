@@ -1,18 +1,18 @@
 <html>
 <meta charset="UTF-8">
 <body>
-<div data-theme="b" id="register" data-role="page" data-url="register">
+	<div data-theme="b" id="register" data-role="page">
 		<div data-role="panel" data-position="right" id="menu" class="bmenu">
-		  <ul data-role="listview" data-inset="true" data-theme="b">
-		    <li data-role="list-divider">Insight Presentation</li>
-		    <li><a href="/" data-panel="main">Home</a></li>
-		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Plist">PPT목록</a></strong></li>
-		    <li><a href="#my" data-panel="main">마이페이지</a></li>
-		  </ul>
+			<ul data-role="listview" data-inset="true" data-theme="b">
+				<li data-role="list-divider">Insight Presentation</li>
+				<li><a href="/" data-panel="main">Home</a></li>
+				<li><a href="/logout">로그아웃</a></strong></li>
+				<li><a href="/Plist">PPT목록</a></strong></li>
+				<li><a href="#my" data-panel="main">마이페이지</a></li>
+			</ul>
 		</div>
 
-		
+
 
 		<div data-role="header">
 			<a data-icon="back" data-role="button" href="/login">back</a>
@@ -23,12 +23,12 @@
 			<label><h1>Join&nbsp;Member</h1></label>
 
 			<script>
-				var poll_func = function(el){
-					var form = document.forms['joinForm3'];
-					form.submit();
+			var poll_func = function(el){
+				var form = document.forms['joinForm3'];
+				form.submit();
 
-				
-				}
+
+			}
 
 			</script>
 
@@ -56,21 +56,21 @@
 				<div data-role="fieldcontail">
 					<fieldset data-type="horizontal" data-role="controlgroup">
 						<label> 성별 확인 : </label><br> <label for="male"> 남 </label> <input type="radio" name="sex" id="male"> <label for="female">
-							여 </label> <input type="radio" name="sex" id="female">
+						여 </label> <input type="radio" name="sex" id="female">
 					</fieldset>
 				</div>
 				<br> <br>
 				<center>
-				<div data-role="fieldcontail">
-				<!--	<a data-transition="flip" type="submit" style="width: 200px" data-role="button" onclick = "poll_func(this)">Join</a> -->
+					<div data-role="fieldcontail">
+						
 						<input type = "submit" value = "join" onclick = "poll_func(this)"/>
 					</center>
 				</div>
 			</form>
 		</div>
-        
+
 		<div data-position="fixed" data-role="footer">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-	</div>
-</body>
-</html>
+			<h4 class="ui-title" role="heading" aria-level="1">&copy;Pickle<img id="brain" src="brain32.png"></h4> </div>
+		</div>
+	</body>
+	</html>

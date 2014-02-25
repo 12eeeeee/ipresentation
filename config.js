@@ -6,7 +6,7 @@ module.exports = {
         fb : {
             appId : '523372931115477',
             appSecret:'ab0bb79a0f02f89627ab7564baf752b9',
-            url : 'https://locahost:3000/'
+            url : 'http://192.168.25.38:3000/'
         },
         dbUrl: 'mongodb://insightpresentation:tkfkdgks0@ds027709.mongolab.com:27709/ipt'
     }

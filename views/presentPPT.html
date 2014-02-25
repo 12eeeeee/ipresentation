@@ -1,227 +1,160 @@
+<head>
+	<script src="js/AudioContextMonkeyPatch.js"></script>
+	<script src="js/audiodisplay.js"></script>
+	<script src="js/recorder.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/demo.js"></script>
+	<script src="js/recorderWorker.js"></script>
+	<script src="js/jquery.timer.js"></script>
+
+
+	<style>
+	body{
+		font-family:"맑은 고딕";
+	}
+
+	#a {	height: 100%; }
+	#b {	height: 100%; }
+	#c td{	width:50%;  }
+	#d td{	height: 10%;  }
+	table {	width: 100%;	height:40%;  }
+	#wrap1 {	height: 40%;  }
+	#a1 {	text-align: center; }
+	#b1 {	text-align: center; }
+	#c1 {	height: 100%;  }
+	#c1 td{	width: 50%;	height :100%;  } 
+
+
+	canvas { 
+		display: inline-block; 
+		background: #202020; 
+		width: 95%;
+		height: 45%;
+		box-shadow: 0px 0px 10px blue;
+	}
+	#controls {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		height: 20%;
+		width: 100%;
+	}
+	#record { height: 15vh; }
+	#record.recording { 
+		background: red;
+		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+	}
+	#save { height: 10vh; }
+	#viz {
+		height: 80%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		background-color:white;
+	}
+	@media (orientation: landscape) {
+		body { flex-direction: row;}
+		#controls { flex-direction: column; height: 100%; width: 10%;}
+		#viz { height: 100%; width: 90%;}
+	}
+
+
+	</style>
+</head>
 <body>
-<script src="js/AudioContextMonkeyPatch.js"></script>
-<script src="js/audiodisplay.js"></script>
-<script src="js/recorder.js"></script>
-<script src="js/main.js"></script>
-<script src="js/demo.js"></script>
-<script src="js/recorderWorker.js"></script>
-<script src="js/jquery.timer.js"></script>
-
-
-   <style type="text/css">
-   body{
-   			font-family:"맑은 고딕";
-   }
-    
-#a {
-	height: 100%;
-
-}
-
-#b {
-	height: 100%;
-	
-}
-
-#c td{
-	width:50%;
-}
-
-#d td{
-	height: 10%;
-}
-
-
-table {
-	width: 100%;
-	height:40%;
-}
-
-
-#wrap1 {
-	height: 40%;
-
-}
-
-#a1 {	
-	text-align: center;
-}
-
-#b1 {
-	
-	text-align: center;
-}
-
-#c1 {
-	height: 100%;
-}
-
-#c1 td{
-	width: 50%;
-	height :100%;
-} 
-
-
-<!--------------------------녹음기능 레이아웃 스타일 ----------------------->
-
- 	canvas { 
-                		display: inline-block; 
-                		background: #202020; 
-                		width: 95%;
-                		height: 45%;
-                		box-shadow: 0px 0px 10px blue;
-                	}
-                	#controls {
-                		display: flex;
-                		flex-direction: row;
-                		align-items: center;
-                		justify-content: space-around;
-                		height: 20%;
-                		width: 100%;
-                	}
-                	#record { height: 15vh; }
-                	#record.recording { 
-                		background: red;
-                		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
-                	}
-                	#save { height: 10vh; }
-                	#viz {
-                		height: 80%;
-                		width: 100%;
-                		display: flex;
-                		flex-direction: column;
-                		justify-content: space-around;
-                		align-items: center;
-						background-color:white;
-                	}
-                	@media (orientation: landscape) {
-                		body { flex-direction: row;}
-                		#controls { flex-direction: column; height: 100%; width: 10%;}
-                		#viz { height: 100%; width: 90%;}
-                	}
-
-
-</style>
 
 <div data-role="page" id="real_control" data-theme="b">
-	<form>
-	</form>
-		<input type = "hidden" id="getSList" value=<%=SLIDE%>>
-		<div data-role="panel" data-position="right" id="menu" class="bmenu">
-		  <ul data-role="listview" data-inset="true" data-theme="b">
-		    <li data-role="list-divider">Insight Presentation</li>
-		    <li><a href="/" data-panel="main">Home</a></li>
-		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Plist">PPT목록</a></strong></li>
-		    <li><a href="#my" data-panel="main">마이페이지</a></li>
-		  </ul>
-		</div>
-		<div data-role="header">
-			<a href="/Pmenu/<%=cPage%>" data-role="button" data-icon="back">back</a>
-			<h1 align="center">PPT 발표모드</h1>
-			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>       
-		</div>
-        
- <script>
 
-// document.write("<script type='text/javascript' src='/js/recorder.js'><"+"/script>"); 
- 	function printInfo(){
+<div data-role="panel" data-position="right" id="menu" class="bmenu">
+	<ul data-role="listview" data-inset="true" data-theme="b">
+		<li data-role="list-divider">Insight Presentation</li>
+		<li><a href="/" data-panel="main">Home</a></li>
+		<li><a href="/logout">로그아웃</a></strong></li>
+		<li><a href="/Plist">PPT목록</a></strong></li>
+		<li><a href="#my" data-panel="main">마이페이지</a></li>
+	</ul>
+</div>
+<div data-role="header">
+	<a href="/Pmenu/<%=cPage%>" data-role="button" data-icon="back">back</a>
+	<h1 align="center">PPT 발표모드</h1>
+	<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>       
+</div>
 
- 		//var ASTORE = new STORE();
- 		document.getElementById("R_NAME").value = STORE.R_NAME;
 
- 		document.getElementById("R_blob").value = STORE.R_blob;
+<div data-role="content">
+<center><input type ="hidden" id="getSList" value=<%=SLIDE%>></center>
+	<script>
+	// document.write("<script type='text/javascript' src='/js/recorder.js'><"+"/script>"); 
+	function printInfo(){
+	//var STORE = new STORE();
+	saveAudio();
+	document.getElementById("R_NAME").value = STORE.R_NAME;
+	document.getElementById("R_blob").value = STORE.R_blob;
+	}
+	</script>
 
- 	}
- </script>
 
-	<div data-role="content">
-		
-        <table style="width: 100%" style="height:100%">
+	<table style="width: 100%" style="height:100%">
 
-        	 <%= cPage %>
-        	
-				<tr>
-					<td colspan=2 align="center">
-						<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
-                     		 <div>
-           						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example2.Timer.toggle();">&nbsp;&nbsp; 
-								<img id="stop" src="stopstop48.png" onclick="saveAudio();">&nbsp;&nbsp; 
-								<img id="init_" src="stop.png" onclick="Example2.resetStopwatch();">&nbsp;&nbsp; &nbsp;&nbsp; 
-                   				<input type="hidden" id = "R_NAME" name="R_NAME"/>
-                				<input type="hidden" id = "R_blob" name="R_blob"/>
-                				<input type="image" src="save.png" alt="Submit Form" onclick="saveAudio();"/>
-								&nbsp;&nbsp; &nbsp;&nbsp;                  
-                        	<br/><br/><span id="stopwatch2">00:00:00</span> &nbsp;&nbsp;    	
-            				</div> 
-            			</form>
-					</td>
-				</tr>
-						
+	<center>	<%= cPage %>  </center>
+
+		<tr>
+			<td colspan=2 align="center">
+				<form id="recFrm" method="post" action="/upload" enctype="multipart/form-data" onSubmit="printInfo()">
+					<div>
+						<img id="record_" src="mic128.png" onclick="toggleRecording(this);Example2.Timer.toggle();">&nbsp;&nbsp; 
+						<img id="stop" src="stopstop48.png" onclick="saveAudio();">&nbsp;&nbsp; 
+						<img id="init_" src="stop.png" onclick="Example2.resetStopwatch();">&nbsp;&nbsp; &nbsp;&nbsp; 
+						<input type="hidden" id = "R_NAME" name="R_NAME"/>
+						<input type="hidden" id = "R_blob" name="R_blob"/>
+						<input type="image" src="save.png" alt="Submit Form" />&nbsp;&nbsp; &nbsp;&nbsp; 
+						                
+						<br/><br/><span id="stopwatch2">00:00:00</span>   	
+					</div> 
+				</form>
+			</td>
+		</tr>
 
 			<tr>
-				<td colspan=2 width="100%"></td>
-			</tr>
+			<td colspan = 2 width="100%">
+				<script src="js/modernizr-2.6.2.min.js"></script>
+				<div class="controls-contain" >
+					<center>
+						<!-- 			<div data-role="controlgroup" data-type="horizontal"> -->
+						<a href="#" data-key="37" class ="btn" data-role="button" data-icon="back"
+						data-inline="true">이전</a> 
+						<a href="#" data-key="39" id="next" class ="btn"
+						data-role="button" data-icon="forward" data-inline="true">다음</a>
+					</center>		
+				</div>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+				<script src="/socket.io/socket.io.js"></script>
+				<script src="js/controldeck.js"></script>
 
+			</td>
+		</tr>
 
-				<tr>
-					 <td colspan=2 height="500px" width="50%"> 
-
-          				 <iframe width="100%" height="100%" src="reveal.html"></iframe>
-					</td>
-				</tr>
-
-				<tr>
-					<td colspan = 2 width="100%">
-
-          				  <script src="js/modernizr-2.6.2.min.js"></script>
-
-          				 <div class="controls-contain" >
-							<center>
-				<!-- 			<div data-role="controlgroup" data-type="horizontal"> -->
-								<a href="#" data-key="37" class ="btn" data-role="button" data-icon="back"
-										data-inline="true">이전</a> 
-								<a href="#" data-key="39" id="next" class ="btn"
-										data-role="button" data-icon="forward" data-inline="true">다음</a>
-
-							</center>		
-							</div>
+		<tr>
+		 <td colspan=2 height="400px" width="100%" valign="top"> 
+          	 <iframe src="reveal.html"  id="the_iframe" width="100%" height="100%" frameborder="0"  align="top"></iframe>
+		
+		<script src="js/modernizr-2.6.2.min.js"></script>
 						  
-						  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-						  <script src="/socket.io/socket.io.js"></script>
-						  <script src="js/controldeck.js"></script>
-						
-					</td>
-				</tr>
-
-
-
-
-				<tr>
-					<td colspan=2 width="100%">
-						<div data role="content">
-							<form id="rlist" method="post" action="#">
-								<div data-role="fieldcontail">
-
-									<label for="ptlist"></label> <select id="ptlist" name="ptlist"
-										data-native-menu="true">
-
-										<option value="list1">PPT1</option>
-
-										<option value="list2">PPT2</option>
-
-										<option value="list3">PPT3</option>
-
-									</select>
-								</div>
-								</form>
-								</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-        <div data-role="footer" data-position="fixed">
-			<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
-        
-	</div>
+		  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		  <script src="/socket.io/socket.io.js"></script>
+		  <script src="js/controldeck.js"></script>
+		
+		</td>
+		</tr>
+	
+		
+</table>
+</div>
+<div data-role="footer" data-position="fixed">
+	<h4 class="ui-title" role="heading" aria-level="1">&copy;Pickle<img id="brain"></h4> 
+</div>
+</div>
 </body>

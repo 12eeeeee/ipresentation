@@ -16,7 +16,7 @@ var Reveal = (function(){
 		// Configurations defaults, can be overridden at initialization time
 		config = {
 			// Display controls in the bottom right corner
-			controls: true,
+			controls: false,
 
 			// Display a presentation progress bar
 			progress: true,
@@ -160,6 +160,7 @@ var Reveal = (function(){
 			dom.wrapper.appendChild( progressElement );
 		}
 
+
 		// Arrow controls
 		if( !dom.wrapper.querySelector( '.controls' ) && config.controls ) {
 			var controlsElement = document.createElement( 'aside' );
@@ -170,6 +171,9 @@ var Reveal = (function(){
 										'<div class="navigate-down"></div>';
 			dom.wrapper.appendChild( controlsElement );
 		}
+		
+		
+		
 
 		// Presentation background element
 		if( !dom.wrapper.querySelector( '.state-background' ) ) {
@@ -184,6 +188,7 @@ var Reveal = (function(){
 			pausedElement.classList.add( 'pause-overlay' );
 			dom.wrapper.appendChild( pausedElement );
 		}
+
 
 		// Cache references to elements
 		dom.progress = document.querySelector( '.reveal .progress' );
@@ -201,6 +206,7 @@ var Reveal = (function(){
 			dom.controlsNext = toArray( document.querySelectorAll( '.navigate-next' ) );
 		}
 	}
+
 
 	/**
 	 * Hides the address bar if we're on a mobile device.
@@ -268,10 +274,11 @@ var Reveal = (function(){
 		}
 	}
 
+
 	/**
 	 * Starts up reveal.js by binding input events and navigating
-	 * to the current URL deeplink if there is one.
-	 */
+	 * to the current URL deeplink if there is one. */
+	 
 	function start() {
 		// Make sure we've got all the DOM elements we need
 		setupDOM();
@@ -302,6 +309,8 @@ var Reveal = (function(){
 			} );
 		}, 1 );
 	}
+
+
 
 	/**
 	 * Applies the configuration settings from the config object.
@@ -353,10 +362,11 @@ var Reveal = (function(){
 			}
 		}
 	}
+		
 
 	/**
-	 * Binds all event listeners.
-	 */
+	 * Binds all event listeners. */
+	 
 	function addEventListeners() {
 		document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 		document.addEventListener( 'touchmove', onDocumentTouchMove, false );
@@ -408,6 +418,9 @@ var Reveal = (function(){
 			dom.controlsNext.forEach( function( el ) { el.removeEventListener( actionEvent, preventAndForward( navigateNext ), false ); } );
 		}
 	}
+	
+	
+	
 
 	/**
 	 * Extend object a with the properties of object b.
@@ -571,6 +584,8 @@ var Reveal = (function(){
 	 * Experimental feature, might be dropped if perf
 	 * can't be improved.
 	 */
+	 
+	 
 	function activateOverview() {
 
 		// Only proceed if enabled in config
@@ -707,6 +722,9 @@ var Reveal = (function(){
 	 * @see http://fullscreen.spec.whatwg.org/
 	 * @see https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode
 	 */
+	 
+	 /*===================전체화면=======================*/
+	 
 	function enterFullscreen() {
 		var element = document.body;
 
@@ -1023,6 +1041,10 @@ var Reveal = (function(){
 	/**
 	 * Updates the state of all control/navigation arrows.
 	 */
+	 
+	 /*컨트롤 삭제 ======================================================*/
+
+
 	function updateControls() {
 		if ( config.controls && dom.controls ) {
 
@@ -1049,7 +1071,8 @@ var Reveal = (function(){
 
 		}
 	}
-
+	
+	
 	/**
 	 * Determine what available routes there are for navigation.
 	 *
@@ -1237,10 +1260,10 @@ var Reveal = (function(){
 
 		return false;
 	}
-
+	/*===============================버튼삭제=============================================== */
 	/**
 	 * Cues a new automated slide if enabled in the config.
-	 */
+	*/
 	function cueAutoSlide() {
 		clearTimeout( autoSlideTimeout );
 
@@ -1277,6 +1300,7 @@ var Reveal = (function(){
 			slide( indexh, indexv + 1 );
 		}
 	}
+
 
 	/**
 	 * Navigates backwards, prioritized in the following order:
@@ -1567,6 +1591,7 @@ var Reveal = (function(){
 	return {
 		initialize: initialize,
 
+
 		// Navigation methods
 		slide: slide,
 		left: navigateLeft,
@@ -1586,6 +1611,9 @@ var Reveal = (function(){
 		navigateDown: navigateDown,
 		navigatePrev: navigatePrev,
 		navigateNext: navigateNext,
+
+
+
 
 		// Toggles the overview mode on/off
 		toggleOverview: toggleOverview,

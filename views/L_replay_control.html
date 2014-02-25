@@ -1,6 +1,7 @@
+<body onload="SetUpAudio()">
 
-<div data-theme="b" id="L_replay_control" data-role="page" data-url="L_replay_control">
-
+<div data-theme="b" id="L_replay_control" data-role="page" >
+<meta name="viewport" content="width=device-width">
 	<div data-role="panel" data-position="right" id="menu" class="bmenu">
 	  <ul data-role="listview" data-inset="true" data-theme="b">
 	    <li data-role="list-divider">Insight Presentation</li>
@@ -19,14 +20,45 @@
 		<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 	</div>
 	<div data-role="content">
+		<script>
+			function SetUpAudio()
+			{
+				var reader = new FileReader();
+				alert('audio set!');
+		/*		var returnData = JSON.parse(document.getElementById('returnData').value);
+				alert(returnData);
+				alert(document.getElementById('returnData').value);
+				
+				 
+				 reader.readAsDataURL(returnData.fileContent);
+		*/
+			}
+			function loadFile(){
+
+			        var audio = new Audio();
+			        var returnValue = document.getElementById('returnData').value;
+
+			        var replaceValue = returnValue.replace("\"","");
+			        var replaceValue2 = replaceValue.replace("\"","");
+			        var audioSrc = 'data:audio/wav;base64,' + replaceValue2;
+			        var audio = new Audio();
+			        audio.src = audioSrc;
+			        audio.load();
+			        audio.play();
+			    
+			}
+		</script>
 		<table style="width: 100%">
-			
+			<input type="hidden" alt="" id="returnData" name="returnData" value=<%= returnData %>>
+
+
+			<input type='button' onclick="loadFile()">
 			<tbody><tr>
 				<td width="100%" colspan="2">
 					<div data-role="fieldcontail">
 						<%=Article.recordReal%>
 						<audio controls autoplay>
-							<source src=<%=Article.recordReal%> type="audio/wav">
+							<!-- <source src=audio.src type="audio/wav"> -->
 							</audio>
 						</div>
 					</td>
@@ -37,14 +69,15 @@
 						<div data-type="horizontal" data-role="controlgroup">
 							<a data-icon="video" data-role="button" href="#">▶</a>
 							<a data-icon="delete" data-role="button" href="#">■</a> 
-							<a data-icon="audio" data-role="button" href="#">소리</a>
+							<input type = "button" onclick = "SetUpAudio()"/>
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td width="100%" colspan="2">슬라이드보이는창
-						<a data-inline="true" data-icon="action" data-role="button" id="fullscreen">전체화면</a>
+					<td colspan=2 height="500px" width="50%"> 
+						<!-- <iframe width="100%" height="100%" src="reveal.html"></iframe>  
+					 아직 덜 합ㄹㅊ진듯 -->
 					</td>
 				</tr>
 
@@ -77,7 +110,7 @@
 	</div>
 	
 	<div data-position="fixed" data-role="footer">
-		<h4 class="ui-title" role="heading" aria-level="1">&copy;Insight&nbsp;presentation<img id="brain" src="brain32.png"></h4> </div>
+		<h4 class="ui-title" role="heading" aria-level="1">&copy;Pickle</h4> </div>
 	</div>
 	
-
+</body>

@@ -1,6 +1,6 @@
 <head>
 
-	
+
 
 </head>
 <body>
@@ -10,16 +10,17 @@
 	<link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+    <meta name="viewport" content="width=device-width">
 
 
-<div data-theme="b" id="Listen_pt" data-role="page" data-url="Listenpt">
+<div data-theme="b" id="Listen_pt" data-role="page">
 
 		<div data-role="panel" data-position="right" id="menu" class="bmenu">
 		  <ul data-role="listview" data-inset="true" data-theme="b">
 		    <li data-role="list-divider">Insight Presentation</li>
 		    <li><a href="/" data-panel="main">Home</a></li>
 		    <li><a href="/logout">로그아웃</a></strong></li>
-		    <li><a href="/Plist">PPT목록</a></strong></li>
+		    <li><a href="/Llist">PPT목록</a></strong></li>
 		    <li><a href="#my" data-panel="main">마이페이지</a></li>
 		  </ul>
 		</div>
@@ -27,14 +28,17 @@
 
 
 		<div data-role="header">
-			<adata-icon="back" data-role="button" href="/Lmenu">back</a>
+			<a data-icon="back" data-role="button" href="/Lmenu/<%=cPage%>">back</a>
 			<h1 align="center">현재 발표 듣기</h1>
 			<a data-transition="flip" data-icon="grid" data-role="button" href="#menu">menu</a>
 		</div>
 		<div data-role="content">
 			<table style="width: 100%">
 				<tbody><tr>
-					<td width="100%" colspan="2">슬라이드보이는창</td>
+					<td width="100%" colspan="2">
+					
+					
+					</td>
 
 
 				</tr>
@@ -48,26 +52,26 @@
 						</center>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td width="100%" colspan="2">
 								<div data-role="fieldcontail">
 								<form action="/Listenpt" method="post" id="commentForm" onSubmit = "alert('commented')" data-ajax="false">
-									<label for="line_comment"> 한줄 코멘트 남기기 : </label><input type="text" name="comment" id="line_comment">									
-									<input type="submit" value="확인" onclick = "comment_func(this)">	
+									<label for="comment"> 한줄 코멘트 남기기 : </label><input type="text" name="comment" id="comment">									
+									<input type="submit" value="확인" onclick = "document.forms['commentForm'].submit();">	
 								</form>
 								</div>
 								<div>
-									<ul data-role="listview" id="commentlist">
+
 										<% Article.forEach( function(Article){ %>
-											<li> <a>comment :  <%=Article.board.message%>  user : <%=Article.board.writer%></a></li>
+											<div> comment :  <%=Article.message%>  user : <%=Article.writer%> </div>
 										<% }); %>
-									</ul>
+
 								</div>
 					</td>
 				</tr>
-				
-				
+
+
 				<tr>
 					<td width="100%" colspan="2">
 						<div role="content" data="">
@@ -90,7 +94,7 @@
 		</div>
         
         <div data-position="fixed" data-role="footer">
-			<h4>&copy;Insight&nbsp;presentation</h4>
+			<h4>&copy;Pickle</h4>
 		</div>
         </div>
 
@@ -100,6 +104,7 @@
 			form.submit();
 			alert("a");
 		}
+
 	</script>
 
 </body>

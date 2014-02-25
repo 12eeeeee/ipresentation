@@ -169,8 +169,8 @@ ul, ol, div, p {
 }
 .reveal section img {
 	display: block;
-	margin: 0px 0px;
+	margin: 15px 0px;
 	background: rgba(255,255,255,1);
-	border: 0px solid #666;
+	border: 1px solid #666;
 	box-shadow: none;
 }
